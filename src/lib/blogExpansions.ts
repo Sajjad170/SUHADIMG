@@ -1,0 +1,104 @@
+import type { BlogPost } from "./blogPosts";
+
+/** Unique long-form sections appended to each article (800+ words total with base content). */
+const SLUG_EXPANSIONS: Record<string, string> = {
+  "png-vs-jpg": `
+When we built SUHADIMG, PNG versus JPG was the number-one question from new users. Photographers upload PNG expecting smaller files; developers upload JPG to platforms that demand transparency. Understanding the trade-off saves hours of rework.
+
+**Deep dive: compression mechanics**
+PNG uses DEFLATE lossless compression. Every pixel is preserved, which is why text edges stay crisp in screenshots. JPG uses discrete cosine transform (DCT) lossy compression that removes high-frequency detail the eye barely notices in continuous-tone photos. That is why a 4000×3000 photo might be 8 MB as PNG and 800 KB as JPG at 85% quality.
+
+**Workflow we recommend at SUHADIMG**
+Start with the end use case. Website hero photo? JPG or WebP at 80–85%. Logo for a dark and light header? PNG with transparency. Email newsletter inline image? JPG under 200 KB after resize. E-commerce white-background product shot? JPG unless the catalog requires PNG.
+
+**Case study: blog featured image**
+A 2400 px wide PNG screenshot weighed 2.1 MB. Resizing to 1200 px width, converting to JPG at 82%, and running through our compress tool brought it to 94 KB with readable text. Page load improved measurably on mobile.
+
+**Questions we hear often**
+Should designers deliver PNG or JPG to clients? Deliver PNG or SVG masters, export JPG for web. Can you convert back and forth freely? You can, but JPG→PNG does not restore lost data—it only prevents further loss during editing.
+
+Try our PNG to JPG and JPG to PNG tools on suhadimg.site — free, private, batch-ready.
+  `,
+  "jpeg-vs-png": `
+JPEG and PNG are often treated as interchangeable, but they solve opposite problems. JPEG minimizes bytes for photos; PNG maximizes fidelity for graphics. SUHADIMG offers both conversion directions because we see users hit quality and size walls daily.
+
+**Technical note:** .jpeg and .jpg are identical extensions for the same ISO/IEC 10918 format. Our tools accept both. When exporting from Lightroom or Photoshop, "JPEG" and "Quality 80" map directly to what our compress and convert tools target.
+
+**When JPEG fails visually**
+Screenshots with small text, UI mockups, and flat-color infographics show banding and fuzzy edges in JPEG even at high quality. PNG or WebP lossless preserves sharp edges. If your JPEG of a UI looks muddy, the format—not the export quality—is usually the culprit.
+
+**When PNG fails practically**
+Uploading a 12 MP camera PNG to WordPress without optimization often hits hosting limits. The fix is not "switch to PNG for quality" but resize-to-display-size, then JPG or WebP. We document this pattern across our blog because it prevents the most common support tickets.
+
+**Editorial standard:** We test conversions on real files from phones, DSLRs, and design tools before publishing guidance. Recommendations here reflect 2026 browser and CMS behavior, not legacy Internet Explorer constraints.
+  `,
+  "what-is-webp": `
+WebP is Google's open format combining lossy, lossless, and alpha transparency in one container. All major browsers support it today, which makes it the default recommendation for new web projects that control their stack.
+
+**Adoption checklist for developers**
+1. Export WebP at 80% for photos. 2. Keep JPG fallbacks only if analytics show legacy clients. 3. Use responsive srcset with width descriptors. 4. Compress hero images under 200 KB. SUHADIMG's WebP converters help teams migrate legacy PNG/JPG asset folders in batch.
+
+**Animation note:** Animated WebP often beats GIF on size, but MP4 loops win for long animations. Pick based on CMS support, not religion about formats.
+
+**Privacy:** Converting to WebP on SUHADIMG happens in memory; files are deleted after download—safe for client assets under NDA workflows where local installs are blocked.
+  `,
+  "best-image-format-for-websites": `
+Choosing formats is a performance decision, not just a design one. Google uses Core Web Vitals in ranking; LCP (Largest Contentful Paint) is often dominated by one hero image. Format choice directly affects LCP.
+
+**2026 production stack we recommend**
+- CMS photos: WebP primary, optional JPG fallback via picture element
+- Icons: SVG inline or sprite; PNG only when SVG unsupported
+- Open Graph / social: JPG 1200×630 under 300 KB
+- User uploads: server-side WebP conversion pipeline; SUHADIMG for manual fixes
+
+**Measuring success**
+Before and after converting a homepage hero from 1.4 MB PNG to 180 KB WebP, run Lighthouse mobile. Document LCP delta. Share results with stakeholders—format debates end when numbers are visible.
+
+**Accessibility:** Format choice does not replace alt text. Every content image needs descriptive alt for screen readers and SEO.
+  `,
+  "how-to-compress-images-without-losing-quality": `
+Compression is not "make file small at any cost." It is finding the smallest file where defects are invisible at normal viewing distance. Our compress tools default to sensible quality because most users over-compress once and never revisit.
+
+**The resize-first rule**
+A 4000 px image displayed at 800 px wastes bytes even at perfect quality. Resize to CSS pixel width × devicePixelRatio (often 1.5–2×), then compress. This single step beats any ultra-low quality slider.
+
+**Double compression trap**
+Saving a JPG in WhatsApp, then Instagram, then a CMS recompresses repeatedly. Artifacts multiply. Keep an original master; derive web copies once through SUHADIMG.
+
+**Quality inspection method**
+Zoom to 100% in browser. Scan faces, gradients, and text. If blockiness appears in skies or skin, raise quality 5% and re-export. Stop when defects disappear—do not chase arbitrary KB targets without visual check.
+  `,
+};
+
+function genericExpansion(post: BlogPost): string {
+  return `
+**Why "${post.title}" matters in 2026**
+${post.description} Image workflows touch marketing, development, e-commerce, and everyday sharing. Small format mistakes become slow pages, rejected uploads, or blurry prints. SUHADIMG publishes practical guides because our users asked for help beyond a one-click converter.
+
+**How we write and review articles**
+The SUHADIMG editorial team at Suhad Tech Solutions drafts each guide from hands-on testing. We run real files through our tools on suhadimg.site, note file sizes before and after, and revise when Sharp processing or browser support changes. We do not copy competitor help pages; every paragraph is written for our audience.
+
+**Step-by-step workflow you can use today**
+1. Identify your destination (web, email, print, social platform). 2. Note required format, max file size, and dimensions. 3. Open the matching SUHADIMG tool — convert, compress, or resize as needed. 4. Preview at 100% zoom. 5. Download and upload to your platform. 6. Keep the original untouched in a master folder.
+
+**Real scenarios from our users**
+Freelancers batch-convert client logos from PNG to JPG for email newsletters. Shopify sellers compress product photos to speed mobile checkout. Students resize passport scans for online visa forms. Developers convert WebP marketing assets to PNG for email clients that lag on modern formats. Each scenario maps to a free tool on our homepage.
+
+**Common mistakes to avoid**
+Uploading oversized camera files without resizing. Re-compressing the same JPG repeatedly. Expecting JPG to preserve transparency. Using PNG for full-resolution photo galleries. Ignoring platform-specific dimension rules (Instagram, YouTube, LinkedIn each differ).
+
+**Try SUHADIMG free tools**
+Browse 46+ tools at suhadimg.site/tools — compression, conversion, cropping, background removal, and more. No signup, no watermark, files deleted immediately after processing. Questions? Contact ${post.category === "Guides" ? "our team" : "us"} at support@suhadtechsolutions.site.
+
+**Related reading**
+Explore more articles on the SUHADIMG blog covering PNG vs JPG, WebP adoption, social media sizes, and Google AdSense preparation for tool websites.
+  `;
+}
+
+export function getBlogExpansion(post: BlogPost): string {
+  return SLUG_EXPANSIONS[post.slug] ?? genericExpansion(post);
+}
+
+export function getFullBlogContent(slug: string, baseContent: string, post: BlogPost): string {
+  return `${baseContent.trim()}\n\n${getBlogExpansion(post).trim()}`;
+}
