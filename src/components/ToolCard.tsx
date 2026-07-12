@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import type { ToolConfig } from "@/lib/tools";
 import { getToolVisual } from "@/lib/toolVisuals";
@@ -30,9 +28,6 @@ export function ToolCard({
       <Link
         href={href}
         prefetch
-        onMouseEnter={() => {
-          void import("@/components/ImageUploader");
-        }}
         className="group relative flex items-center gap-2.5 rounded-xl border border-zinc-200 bg-white p-2.5 shadow-sm transition-all hover:border-blue-200 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-800"
       >
         {visual.isNew && (
@@ -61,9 +56,6 @@ export function ToolCard({
     <Link
       href={href}
       prefetch
-      onMouseEnter={() => {
-        void import("@/components/ImageUploader");
-      }}
       className={`group relative flex flex-col rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-800 ${
         compact ? "min-h-[140px] p-4" : "min-h-[180px] p-6"
       }`}
