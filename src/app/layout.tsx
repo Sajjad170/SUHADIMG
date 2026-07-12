@@ -50,17 +50,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preload" href="/logo.png" as="image" type="image/png" fetchPriority="high" />
+      <body
+        className={`${geistSans.variable} flex min-h-screen flex-col bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100`}
+      >
         <script
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem("suhadimg-theme");if(t==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark");if(t==="system"){localStorage.setItem("suhadimg-theme","light")}}}catch(e){}})();`,
           }}
         />
-      </head>
-      <body
-        className={`${geistSans.variable} flex min-h-screen flex-col bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100`}
-      >
         <JsonLd
           data={[organizationJsonLd(), websiteJsonLd(), siteNavigationJsonLd()]}
         />

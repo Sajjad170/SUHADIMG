@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Ensure Tailwind scans all source files in production builds */
+@source "../**/*.{js,ts,jsx,tsx,mdx}";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
