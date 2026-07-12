@@ -1,7 +1,7 @@
 import { GLOBAL_FAQS } from "./globalFaqs";
 import { homeTools } from "./homepageTools";
 import { COMPANY, SOCIAL_LINKS } from "./site";
-import { CATEGORY_LABELS, getToolBySlug, type ToolConfig } from "./tools";
+import { getToolBySlug, type ToolConfig, type ToolFAQ } from "./tools";
 import { buildToolSeoTitle, SITE_NAME, SITE_URL } from "./seo";
 
 const SITE_DESCRIPTION =
@@ -45,6 +45,14 @@ export function websiteJsonLd() {
     description: SITE_DESCRIPTION,
     publisher: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "en",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/tools`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -127,8 +135,8 @@ export function toolBreadcrumbJsonLd(tool: ToolConfig) {
       {
         "@type": "ListItem",
         position: 2,
-        name: CATEGORY_LABELS[tool.category],
-        item: `${SITE_URL}/tools#${tool.category}`,
+        name: "Image Tools",
+        item: `${SITE_URL}/tools`,
       },
       {
         "@type": "ListItem",
@@ -140,8 +148,161 @@ export function toolBreadcrumbJsonLd(tool: ToolConfig) {
   };
 }
 
-export function toolFaqJsonLd(tool: ToolConfig) {
-  const allFaqs = [...tool.faqs, ...GLOBAL_FAQS];
+export interface HowToStepForSchema {
+  name: string;
+  text: string;
+}
+
+/** Unified @graph JSON-LD for tool pages — WebSite, Organization, Breadcrumb, Software, HowTo, FAQ, WebPage. */
+export function toolPageJsonLdGraph(
+  tool: ToolConfig,
+  faqs: ToolFAQ[],
+  howToSteps: HowToStepForSchema[]
+) {
+  const pageUrl = `${SITE_URL}/${tool.slug}`;
+  const howToName =
+    tool.slug === "compress-image"
+      ? "How to Compress Images Online Free"
+      : `How to use ${tool.title}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        description: SITE_DESCRIPTION,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: COMPANY.name,
+        url: SITE_URL,
+        email: COMPANY.email,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/logo.png`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Image Tools",
+            item: `${SITE_URL}/tools`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: tool.title,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${pageUrl}#software`,
+        name: `SUHADIMG ${tool.title}`,
+        url: pageUrl,
+        description: tool.metaDescription,
+        applicationCategory: "MultimediaApplication",
+        operatingSystem: "Windows, macOS, Linux, iOS, Android",
+        browserRequirements: "Requires HTML5 compatible web browser.",
+        offers: {
+          "@type": "Offer",
+          price: "0.00",
+          priceCurrency: "USD",
+        },
+        provider: { "@id": `${SITE_URL}/#organization` },
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+      },
+      {
+        "@type": "HowTo",
+        "@id": `${pageUrl}#howto`,
+        name: howToName,
+        description: tool.metaDescription,
+        step: howToSteps.map((step, index) => ({
+          "@type": "HowToStep",
+          position: index + 1,
+          name: step.name,
+          text: step.text,
+          url: `${pageUrl}#step${index + 1}`,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      },
+      {
+        "@type": "WebPage",
+        "@id": pageUrl,
+        name: tool.title,
+        description: tool.metaDescription,
+        url: pageUrl,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+        mainEntity: { "@id": `${pageUrl}#software` },
+      },
+    ],
+  };
+}
+
+export function toolHowToJsonLd(tool: ToolConfig, steps: string[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `How to use ${tool.title}`,
+    description: tool.metaDescription,
+    step: steps.map((text, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: `Step ${index + 1}`,
+      text,
+    })),
+    tool: {
+      "@type": "HowToTool",
+      name: "SUHADIMG web browser",
+    },
+  };
+}
+
+export function toolWebPageJsonLd(tool: ToolConfig) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: tool.title,
+    description: tool.metaDescription,
+    url: `${SITE_URL}/${tool.slug}`,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: {
+      "@type": "Thing",
+      name: tool.shortTitle,
+    },
+  };
+}
+
+export function toolFaqJsonLd(tool: ToolConfig, faqs?: ToolConfig["faqs"]) {
+  const allFaqs = faqs ?? [...tool.faqs, ...GLOBAL_FAQS];
 
   return {
     "@context": "https://schema.org",

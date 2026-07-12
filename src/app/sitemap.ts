@@ -6,6 +6,8 @@ import { LOCALES, DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { buildHreflangAlternates } from "@/lib/i18n/hreflang";
 import { localePath } from "@/lib/i18n/paths";
 
+import { comingSoonTools } from "@/lib/comingSoonTools";
+
 const BASE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://suhadimg.site"
 ).replace(/\/$/, "");
@@ -65,6 +67,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(post.date),
       changeFrequency: "monthly" as const,
       priority: 0.6,
+    })),
+    ...comingSoonTools.map((tool) => ({
+      url: `${BASE_URL}/coming-soon/${tool.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
   ];
 }

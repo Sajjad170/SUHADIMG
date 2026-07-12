@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import JSZip from "jszip";
+import dynamic from "next/dynamic";
 import {
   Upload,
   X,
@@ -12,9 +12,19 @@ import {
 } from "lucide-react";
 import type { ToolConfig } from "@/lib/tools";
 import { MAX_BATCH_FILES, MAX_FILE_SIZE } from "@/lib/tools/constants";
-import { CropEditor, type CropArea } from "./CropEditor";
+import type { CropArea } from "./CropEditor";
 import { formatBytes, savingsPercent } from "@/lib/format";
 import { BackgroundRemoverStatus } from "./BackgroundRemoverStatus";
+
+const CropEditor = dynamic(
+  () => import("./CropEditor").then((m) => m.CropEditor),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-48 animate-pulse rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900" />
+    ),
+  }
+);
 
 interface UploadedFile {
   file: File;
@@ -352,6 +362,7 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
       downloadFile(processed[0]);
       return;
     }
+    const { default: JSZip } = await import("jszip");
     const zip = new JSZip();
     processed.forEach((item) => zip.file(item.filename, item.blob));
     const content = await zip.generateAsync({ type: "blob" });

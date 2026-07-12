@@ -30,6 +30,13 @@ export function LogoWithName({
       width={width}
       height={height}
       priority={priority}
+      sizes={
+        variant === "hero"
+          ? "(max-width: 640px) 280px, 420px"
+          : variant === "compact"
+            ? "158px"
+            : "210px"
+      }
       className={cn("h-auto w-auto object-contain dark:brightness-110", className)}
       style={{ height, width: "auto", maxWidth: width }}
     />

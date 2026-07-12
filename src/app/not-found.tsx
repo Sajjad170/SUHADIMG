@@ -1,7 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Home, Search } from "lucide-react";
 import { getPopularTools } from "@/lib/tools";
 import { homeTools } from "@/lib/homepageTools";
+
+export const metadata: Metadata = {
+  title: "Page Not Found",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   const popular = getPopularTools().slice(0, 6);

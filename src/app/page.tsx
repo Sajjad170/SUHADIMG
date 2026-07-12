@@ -4,7 +4,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { LogoWithName } from "@/components/Logo";
 import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
-import { blogPosts } from "@/lib/blog";
+import { ComingSoonSection } from "@/components/ComingSoonSection";
+import { blogPosts } from "@/lib/blogPosts";
 import { getHomeMetadata } from "@/lib/seo";
 import { homepageItemListJsonLd } from "@/lib/structuredData";
 import { Zap, Shield, Globe, Sparkles } from "lucide-react";
@@ -15,10 +16,6 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={homepageItemListJsonLd()} />
-      <div className="pointer-events-none absolute inset-x-0 top-28 -z-10 h-80 overflow-hidden">
-        <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-blue-100/60 blur-3xl dark:bg-blue-950/30" />
-        <div className="absolute -right-32 top-20 h-80 w-80 rounded-full bg-cyan-100/50 blur-3xl dark:bg-cyan-950/20" />
-      </div>
 
       <section className="px-4 pb-2 pt-8 sm:px-6 sm:pt-10 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
@@ -37,12 +34,12 @@ export default function HomePage() {
       </section>
 
       {/* All tools by category — iloveimg-style cards directly under featured grid */}
-      <section className="mx-auto max-w-6xl border-t border-zinc-200 px-4 py-10 sm:px-6 lg:px-8 dark:border-zinc-800">
+      <section className="mx-auto max-w-6xl border-t border-zinc-200 px-4 py-10 sm:px-6 lg:px-8 dark:border-zinc-800 [content-visibility:auto] [contain-intrinsic-size:auto_900px]">
         <CategoryToolsSection />
       </section>
 
       {/* Trust badges */}
-      <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_200px]">
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
           {[
             { icon: Zap, title: "Lightning Fast", desc: "Instant Sharp processing" },
@@ -69,7 +66,7 @@ export default function HomePage() {
       </section>
 
       {/* SEO content sections */}
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_500px]">
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 sm:p-8">
           <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-white">
             How to Convert Images Online
@@ -105,14 +102,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
-        <section className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
+      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_400px]">
+        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
           <SectionHeading title="From the Blog" subtitle="Guides and tips for better images" />
           <div className="grid gap-3 sm:grid-cols-3">
             {blogPosts.slice(0, 3).map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
+                prefetch
                 className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800"
               >
                 <span className="text-[10px] font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
@@ -130,13 +128,16 @@ export default function HomePage() {
           <div className="mt-4 text-center">
             <Link
               href="/blog"
+              prefetch
               className="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400"
             >
               View all articles →
             </Link>
           </div>
-        </section>
+        </div>
       </section>
+
+      <ComingSoonSection />
     </>
   );
 }

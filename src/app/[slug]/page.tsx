@@ -20,6 +20,7 @@ const RESERVED_SLUGS = new Set([
   "disclaimer",
   "cookies",
   "site-map",
+  "coming-soon",
   "api",
   ...LOCALES.filter((l) => l !== DEFAULT_LOCALE),
 ]);

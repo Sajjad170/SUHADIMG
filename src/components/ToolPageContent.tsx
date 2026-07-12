@@ -4,21 +4,21 @@ import { ImageUploader } from "./ImageUploaderLazy";
 import { JsonLd } from "./JsonLd";
 import { ToolCard } from "./ToolCard";
 import { ToolSeoContent } from "./ToolSeoContent";
+import { ToolSeoEnhanced } from "./ToolSeoEnhanced";
+import { FaqAccordion } from "./FaqAccordion";
 import { SectionHeading } from "./SectionHeading";
-import { GLOBAL_FAQS } from "@/lib/globalFaqs";
 import type { ToolConfig } from "@/lib/tools";
 import { getRelatedTools } from "@/lib/tools";
 import { getToolVisual } from "@/lib/toolVisuals";
 import type { Locale } from "@/lib/i18n/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
-import { localePath } from "@/lib/i18n/paths";
+import { localePath, toolPath } from "@/lib/i18n/paths";
 import { getLocalizedTool } from "@/lib/i18n/toolLocale";
+import { buildEnhancedToolSeo, categoryBreadcrumbLabel } from "@/lib/toolSeoEnhanced";
+import { buildToolSeoSections } from "@/lib/toolSeoContent";
+import { howToStepsForSchema } from "@/lib/toolCopyOverrides";
 import { ui } from "@/lib/i18n/ui";
-import {
-  toolBreadcrumbJsonLd,
-  toolFaqJsonLd,
-  toolSoftwareApplicationJsonLd,
-} from "@/lib/structuredData";
+import { toolPageJsonLdGraph } from "@/lib/structuredData";
 
 interface ToolPageContentProps {
   tool: ToolConfig;
@@ -34,32 +34,53 @@ export function ToolPageContent({
   const Icon = visual.icon;
   const localized = getLocalizedTool(tool, locale);
   const strings = ui(locale);
-  const allFaqs =
-    locale === DEFAULT_LOCALE
-      ? [...tool.faqs, ...GLOBAL_FAQS]
-      : localized.faqs;
+  const isEnglish = locale === DEFAULT_LOCALE;
+  const enhancedSeo = isEnglish ? buildEnhancedToolSeo(tool) : null;
+  const allFaqs = enhancedSeo?.allFaqs ?? localized.faqs;
+  const introText = enhancedSeo?.richIntroduction ?? localized.description;
+  const categoryLabel = isEnglish ? categoryBreadcrumbLabel(tool) : localized.categoryLabel;
+  const howToSchemaSteps =
+    enhancedSeo?.howToStepsSchema ??
+    howToStepsForSchema(tool, buildToolSeoSections(tool).steps);
 
   return (
     <>
-      <JsonLd
-        data={[
-          toolSoftwareApplicationJsonLd(tool),
-          toolBreadcrumbJsonLd(tool),
-          toolFaqJsonLd({ ...tool, faqs: allFaqs }),
-        ]}
-      />
+      <JsonLd data={toolPageJsonLdGraph(tool, allFaqs, howToSchemaSteps)} />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
-        <nav className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
-          <Link
-            href={localePath("/", locale)}
-            className="hover:text-blue-600 dark:hover:text-blue-400"
-          >
-            {strings.toolPage.home}
-          </Link>
-          <span className="mx-2">/</span>
-          <span>{localized.categoryLabel}</span>
-          <span className="mx-2">/</span>
-          <span className="text-zinc-900 dark:text-white">{localized.shortTitle}</span>
+        <nav className="mb-6 text-sm text-zinc-500 dark:text-zinc-400" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <li>
+              <Link
+                href={localePath("/", locale)}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {strings.toolPage.home}
+              </Link>
+            </li>
+            <li aria-hidden="true" className="text-zinc-400">
+              /
+            </li>
+            <li>
+              <Link
+                href={localePath("/tools", locale)}
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {categoryLabel}
+              </Link>
+            </li>
+            <li aria-hidden="true" className="text-zinc-400">
+              /
+            </li>
+            <li>
+              <Link
+                href={toolPath(tool.slug, locale)}
+                className="font-medium text-zinc-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                aria-current="page"
+              >
+                {localized.shortTitle}
+              </Link>
+            </li>
+          </ol>
         </nav>
 
         <div className="mb-8 flex items-start gap-5">
@@ -80,7 +101,7 @@ export function ToolPageContent({
               )}
             </div>
             <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">
-              {localized.description}
+              {introText}
             </p>
           </div>
         </div>
@@ -115,28 +136,25 @@ export function ToolPageContent({
           ))}
         </div>
 
-        <ToolSeoContent tool={tool} locale={locale} localized={localized} />
-
-        <section className="mb-10">
-          <SectionHeading title={strings.toolPage.faqTitle} />
-          <div className="space-y-3">
-            {allFaqs.map((faq, i) => (
-              <details
-                key={i}
-                className="group overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
-              >
-                <summary className="cursor-pointer px-5 py-4 font-medium text-zinc-900 marker:content-none hover:bg-zinc-50 dark:text-white dark:hover:bg-zinc-800/50">
-                  {faq.question}
-                </summary>
-                <p className="border-t border-zinc-100 px-5 py-4 text-sm leading-relaxed text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
+        {enhancedSeo ? (
+          <div className="[content-visibility:auto] [contain-intrinsic-size:auto_1200px]">
+            <ToolSeoEnhanced tool={tool} seo={enhancedSeo} />
           </div>
+        ) : (
+          <div className="[content-visibility:auto] [contain-intrinsic-size:auto_800px]">
+            <ToolSeoContent tool={tool} locale={locale} localized={localized} />
+          </div>
+        )}
+
+        <section
+          className="mb-10 mt-10 [content-visibility:auto] [contain-intrinsic-size:auto_600px]"
+          aria-labelledby="tool-faq-heading"
+        >
+          <SectionHeading id="tool-faq-heading" title={strings.toolPage.faqTitle} />
+          <FaqAccordion faqs={allFaqs} id="faq" />
         </section>
 
-        {related.length > 0 && (
+        {!enhancedSeo && related.length > 0 && (
           <section>
             <SectionHeading
               title={strings.toolPage.relatedTitle}

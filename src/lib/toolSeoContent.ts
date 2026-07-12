@@ -1,11 +1,5 @@
 import type { ToolConfig } from "./tools";
-import { CATEGORY_LABELS } from "./tools";
-
-function formatList(formats: string[]): string {
-  const labels = formats.map((f) => f.toUpperCase().replace("JPEG", "JPG"));
-  if (labels.length <= 1) return labels[0] ?? "common image formats";
-  return `${labels.slice(0, -1).join(", ")} and ${labels[labels.length - 1]}`;
-}
+import { formatListForSeo } from "./formatLabels";
 
 function actionVerb(tool: ToolConfig): string {
   switch (tool.operation) {
@@ -38,7 +32,7 @@ function howToSteps(tool: ToolConfig): string[] {
   const verb = actionVerb(tool);
   const base = [
     `Visit the ${tool.title} page on SUHADIMG at suhadimg.site — no account needed.`,
-    `Click the upload area or drag and drop your ${formatList(tool.inputFormats)} file(s). You can select multiple files for batch processing.`,
+    `Click the upload area or drag and drop your ${formatListForSeo(tool.inputFormats)} file(s). You can select multiple files for batch processing.`,
     `Review the preview and adjust settings such as quality level, width, height, rotation angle, or crop area depending on the tool.`,
     `Click the main action button (${tool.operation === "convert" ? "Convert" : "Process"}) and wait a few seconds. SUHADIMG uses the Sharp library for fast, reliable processing.`,
     `Download your finished file individually, or download all results as a ZIP when processing multiple images. Your originals are never stored on our servers.`,
@@ -280,7 +274,7 @@ function tips(tool: ToolConfig): string[] {
 
 function whatItDoesExtra(tool: ToolConfig): string {
   const verb = actionVerb(tool);
-  const inputs = formatList(tool.inputFormats);
+  const inputs = formatListForSeo(tool.inputFormats);
 
   if (tool.operation === "convert" && tool.outputFormat) {
     return `In practical terms, the ${tool.title} reads your ${inputs} file, decodes the pixel data, and re-encodes it as ${tool.outputFormat.toUpperCase()} using settings tuned for web and everyday use. This is useful when a platform, client, or colleague requires a specific format and you do not want to install desktop software. Because SUHADIMG runs in the cloud with in-memory processing, you get fast results on any device — Windows, Mac, Linux, Android, or iPhone — with nothing to install.`;
@@ -333,12 +327,12 @@ export interface ToolSeoSections {
 
 export function buildToolSeoSections(tool: ToolConfig): ToolSeoSections {
   const verb = actionVerb(tool);
-  const inputs = formatList(tool.inputFormats);
+  const inputs = formatListForSeo(tool.inputFormats);
   const output = tool.outputFormat
     ? tool.outputFormat.toUpperCase()
     : "processed output";
 
-  const introduction = `${tool.description} SUHADIMG is a free online image platform by Suhad Tech Solutions, designed so anyone can ${verb} images in seconds without signing up or installing software. Whether you have one file or a full folder of ${inputs} images, this dedicated ${tool.title} page gives you a focused workflow with clear steps, helpful tips, and instant download. Unlike thin converter pages that only show an upload button, we explain what the tool does, when to use it, and how to get the best results — because useful content matters for you and for building a trustworthy resource on the web.`;
+  const introduction = `${tool.description} This free online workflow on SUHADIMG — built by Suhad Tech Solutions — lets you ${verb} ${inputs} files in seconds with no signup or software installs. Whether you need a single export or a bulk optimization batch, this page offers focused steps, practical tips, and instant download at suhadimg.site. Unlike thin landing pages that only show an upload button, we explain what the tool does, when to use it, and how to get the best results — because useful content matters for you and for building a trustworthy resource on the web.`;
 
   const supportedFormatsBody = tool.outputFormat
     ? `This tool accepts ${inputs} as input and produces ${output} files optimized for everyday use. Supported uploads include common extensions for each format. You can process files one at a time or upload multiple images and download everything as a ZIP archive. SUHADIMG runs in modern browsers including Chrome, Firefox, Safari, and Edge on desktop and mobile. If a file fails to upload, check that the extension matches a supported input format and that the file is not corrupted.`

@@ -46,17 +46,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/95">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Link href="/" prefetch className="shrink-0" aria-label="SUHADIMG home">
-          <LogoWithName variant="compact" priority />
+          <LogoWithName variant="compact" />
         </Link>
 
-        <div className="hidden min-w-0 flex-1 justify-center md:flex">
+        <div className="flex min-w-0 flex-1 justify-center px-2">
           <SearchBar compact />
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-1">
-          <div className="md:hidden">
-            <SearchBar compact />
-          </div>
           <nav className="hidden items-center gap-0.5 sm:flex">
             {navLinks.map((link) => (
               <Link

@@ -3,6 +3,7 @@ import { CategoryToolsSection } from "@/components/CategoryToolsSection";
 import { JsonLd } from "@/components/JsonLd";
 import { LogoWithName } from "@/components/Logo";
 import { SectionHeading } from "@/components/SectionHeading";
+import { ComingSoonSection } from "@/components/ComingSoonSection";
 import { homepageItemListJsonLd } from "@/lib/structuredData";
 import type { Locale } from "@/lib/i18n/config";
 import { ui } from "@/lib/i18n/ui";
@@ -68,6 +69,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           </p>
         </div>
       </section>
+
+      <ComingSoonSection />
     </>
   );
 }

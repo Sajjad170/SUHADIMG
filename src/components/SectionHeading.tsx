@@ -1,12 +1,16 @@
 interface SectionHeadingProps {
+  id?: string;
   title: string;
   subtitle?: string;
 }
 
-export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
+export function SectionHeading({ id, title, subtitle }: SectionHeadingProps) {
   return (
     <div className="mb-6">
-      <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-[1.65rem]">
+      <h2
+        id={id}
+        className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-[1.65rem]"
+      >
         {title}
       </h2>
       {subtitle && (
