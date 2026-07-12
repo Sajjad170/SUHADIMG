@@ -333,7 +333,16 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
         );
       }
 
-      let data: { error?: string; results?: unknown[] };
+      let data: {
+        error?: string;
+        results?: Array<{
+          filename: string;
+          data: string;
+          mimeType: string;
+          originalSize: number;
+          newSize: number;
+        }>;
+      };
       try {
         data = await res.json();
       } catch {
@@ -348,6 +357,10 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
 
       if (!res.ok) {
         throw new Error(data.error ?? "Processing failed");
+      }
+
+      if (!data.results?.length) {
+        throw new Error("No processed files returned. Please try again.");
       }
 
       const results: ProcessedFile[] = data.results.map(
