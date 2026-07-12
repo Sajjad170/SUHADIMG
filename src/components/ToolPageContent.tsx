@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Shield, Zap, Lock } from "lucide-react";
-import { ImageUploader } from "./ImageUploaderLazy";
+import { ImageUploader } from "./ImageUploader";
 import { JsonLd } from "./JsonLd";
 import { ToolCard } from "./ToolCard";
 import { ToolSeoContent } from "./ToolSeoContent";

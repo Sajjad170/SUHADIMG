@@ -5,6 +5,7 @@ import { fetchImageFromUrl } from "@/lib/imageEffects";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+export const dynamic = "force-dynamic";
 
 function getFileExtension(name: string): string {
   const ext = name.split(".").pop()?.toLowerCase() ?? "";

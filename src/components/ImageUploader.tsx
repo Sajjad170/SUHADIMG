@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
   Upload,
@@ -83,6 +83,7 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
   const [memeBottomText, setMemeBottomText] = useState("");
   const [pageUrl, setPageUrl] = useState("");
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const fileInputId = useId();
 
   const acceptMap: Record<string, string> = {
     jpeg: ".jpg,.jpeg",
@@ -101,6 +102,7 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
 
   const accept = tool.inputFormats
     .map((f) => acceptMap[f] ?? `.${f}`)
+    .concat("image/*")
     .join(",");
 
   useEffect(() => {
@@ -143,6 +145,15 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
       });
     },
     [tool.operation]
+  );
+
+  const handleFileInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selected = e.target.files;
+      if (selected?.length) addFiles(selected);
+      e.target.value = "";
+    },
+    [addFiles]
   );
 
   const removeFile = (index: number) => {
@@ -309,8 +320,29 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
 
       setProgress(40);
 
-      const res = await fetch("/api/process", { method: "POST", body: formData });
-      const data = await res.json();
+      let res: Response;
+      try {
+        res = await fetch("/api/process", {
+          method: "POST",
+          body: formData,
+          cache: "no-store",
+        });
+      } catch {
+        throw new Error(
+          "Network error — could not reach the server. Check your connection, try a smaller image, or refresh and try again."
+        );
+      }
+
+      let data: { error?: string; results?: unknown[] };
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error(
+          res.ok
+            ? "Invalid server response. Please try again."
+            : `Server error (${res.status}). If this persists, the host may be restarting — wait a moment and retry.`
+        );
+      }
 
       setProgress(80);
 
@@ -444,36 +476,42 @@ export function ImageUploader({ tool }: ImageUploaderProps) {
           </p>
         </div>
       ) : (
-      <div
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragOver(true);
-        }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={handleDrop}
-        onClick={() => inputRef.current?.click()}
-        className={`cursor-pointer rounded-2xl border-2 border-dashed p-10 text-center transition-colors ${
-          dragOver
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-950/30"
-            : "border-zinc-300 hover:border-blue-400 dark:border-zinc-700 dark:hover:border-blue-600"
-        }`}
-      >
+      <>
         <input
+          id={fileInputId}
           ref={inputRef}
           type="file"
           accept={accept}
           multiple={!showCrop}
-          className="hidden"
-          onChange={(e) => e.target.files && addFiles(e.target.files)}
+          className="sr-only"
+          onChange={handleFileInputChange}
         />
-        <Upload className="mx-auto mb-4 h-10 w-10 text-zinc-400" />
-        <p className="mb-1 text-lg font-medium text-zinc-900 dark:text-white">
-          Drag & drop {showCrop ? "an image" : "images"} here
-        </p>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          or click to browse · {showCrop ? "1 file" : `Up to ${MAX_BATCH_FILES} files`} · Max 10MB each
-        </p>
-      </div>
+        <label
+          htmlFor={fileInputId}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+          className={`block cursor-pointer rounded-2xl border-2 border-dashed p-10 text-center transition-colors ${
+            dragOver
+              ? "border-blue-500 bg-blue-50 dark:bg-blue-950/30"
+              : "border-zinc-300 hover:border-blue-400 dark:border-zinc-700 dark:hover:border-blue-600"
+          }`}
+        >
+          <Upload className="mx-auto mb-4 h-10 w-10 text-zinc-400" />
+          <p className="mb-1 text-lg font-medium text-zinc-900 dark:text-white">
+            Tap to choose {showCrop ? "an image" : "images"}
+          </p>
+          <p className="mb-4 text-sm text-zinc-500 dark:text-zinc-400">
+            or drag & drop · {showCrop ? "1 file" : `Up to ${MAX_BATCH_FILES} files`} · Max 10MB each
+          </p>
+          <span className="inline-flex rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white">
+            Choose from gallery
+          </span>
+        </label>
+      </>
       )}
 
       {files.length > 0 && (
