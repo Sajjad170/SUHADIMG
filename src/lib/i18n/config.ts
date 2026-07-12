@@ -18,6 +18,15 @@ export const LOCALE_OG: Record<Locale, string> = {
   fr: "fr_FR",
 };
 
+/** BCP 47 hreflang values for alternates.languages metadata */
+export const HREFLANG_CODES: Record<Locale, string> = {
+  en: "en",
+  es: "es-ES",
+  ja: "ja-JP",
+  de: "de-DE",
+  fr: "fr-FR",
+};
+
 export function isLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);
 }

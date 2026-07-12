@@ -163,7 +163,7 @@ export const UI = {
   },
   home: {
     title: {
-      en: "Free Image Converter Online",
+      en: "Free Online Image Converter & Editor Tool",
       es: "Convertidor de imágenes gratis en línea",
       ja: "無料オンライン画像変換",
       de: "Kostenloser Online-Bildkonverter",

@@ -34,6 +34,9 @@ export function generateStaticParams() {
   ];
 }
 
+/** Unknown slugs must return HTTP 404, not 200 with a soft fallback. */
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {

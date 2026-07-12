@@ -1,4 +1,4 @@
-import { LOCALES } from "./config";
+import { LOCALES, HREFLANG_CODES } from "./config";
 import { localePath } from "./paths";
 
 const SITE_URL = (
@@ -11,7 +11,8 @@ export function buildHreflangAlternates(
 ): Record<string, string> {
   const languages: Record<string, string> = {};
   for (const locale of LOCALES) {
-    languages[locale] = `${SITE_URL}${localePath(pathWithoutLocale, locale)}`;
+    languages[HREFLANG_CODES[locale]] =
+      `${SITE_URL}${localePath(pathWithoutLocale, locale)}`;
   }
   languages["x-default"] = `${SITE_URL}${localePath(pathWithoutLocale, "en")}`;
   return languages;

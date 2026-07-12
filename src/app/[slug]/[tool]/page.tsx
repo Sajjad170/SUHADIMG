@@ -11,6 +11,8 @@ export function generateStaticParams() {
   );
 }
 
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
