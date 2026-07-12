@@ -30,6 +30,10 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set("x-locale", locale);
+  response.headers.set(
+    "Cache-Control",
+    "public, max-age=0, s-maxage=300, stale-while-revalidate=600"
+  );
   return response;
 }
 

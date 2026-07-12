@@ -17,6 +17,9 @@ import {
 } from "@/lib/structuredData";
 import "./globals.css";
 
+/** Keep CDN HTML cache short so redeploys don't serve stale CSS chunk URLs. */
+export const revalidate = 300;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

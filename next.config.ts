@@ -32,11 +32,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/:path*",
+        source:
+          "/:path((?!_next/static|_next/image|favicon\\.png|logo\\.png|apple-icon\\.png|bg-ai).*)",
         headers: [
           {
             key: "X-DNS-Prefetch-Control",
             value: "on",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, s-maxage=300, stale-while-revalidate=600",
           },
         ],
       },
