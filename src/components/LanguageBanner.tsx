@@ -36,7 +36,7 @@ export function LanguageBanner() {
     if (locale === browserLang) return;
     if (!pathWithoutLocale.startsWith("/")) return;
 
-    setSuggested(browserLang as Locale);
+    setTimeout(() => setSuggested(browserLang as Locale), 0);
   }, [pathname]);
 
   if (!suggested) return null;

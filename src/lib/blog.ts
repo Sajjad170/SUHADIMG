@@ -58,7 +58,7 @@ WebP is a modern image format developed by Google that provides superior compres
 - Replacing PNG for web graphics
 - Any scenario where file size matters
 
-Use our free WebP converter tools to convert between WebP, JPG, and PNG instantly.
+Use our free [WebP converter](/webp-to-jpg) tools to convert between WebP, JPG, and PNG instantly.
   `,
   "best-image-format-for-websites": `
 Choosing the right image format directly impacts your website's speed and SEO rankings.
@@ -75,7 +75,7 @@ Choosing the right image format directly impacts your website's speed and SEO ra
 - Content images: under 150KB
 - Hero images: under 300KB
 
-Always compress images before uploading. Use our free compress and resize tools to optimize every image.
+Always compress images before uploading. Use our free [compress](/compress-image) and [resize](/resize-image) tools to optimize every image.
   `,
   "how-to-compress-images-without-losing-quality": `
 Image compression reduces file size, but aggressive compression creates visible artifacts. Here's how to compress smartly.
@@ -96,7 +96,7 @@ Image compression reduces file size, but aggressive compression creates visible 
 3. Check visual quality at 100% zoom
 4. Reduce quality only if file is still too large
 
-Our free compress tool handles all of this automatically with privacy-first processing.
+Our free [compress tool](/compress-image) handles all of this automatically with privacy-first processing.
   `,
   "webp-vs-png": `
 WebP and PNG are both widely used on the modern web, but they excel in different scenarios.

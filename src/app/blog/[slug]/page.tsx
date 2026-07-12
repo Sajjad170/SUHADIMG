@@ -21,6 +21,92 @@ export async function generateMetadata({
   return getBlogMetadata(post);
 }
 
+function parseBoldText(text: string): React.ReactNode[] {
+  const boldRegex = /\*\*(.*?)\*\*/g;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+  
+  boldRegex.lastIndex = 0;
+  
+  while ((match = boldRegex.exec(text)) !== null) {
+    const textBefore = text.slice(lastIndex, match.index);
+    const boldContent = match[1];
+    
+    if (textBefore) {
+      parts.push(textBefore);
+    }
+    
+    parts.push(
+      <strong key={match.index} className="font-semibold text-zinc-900 dark:text-white">
+        {boldContent}
+      </strong>
+    );
+    
+    lastIndex = boldRegex.lastIndex;
+  }
+  
+  const textAfter = text.slice(lastIndex);
+  if (textAfter) {
+    parts.push(textAfter);
+  }
+  
+  return parts.length > 0 ? parts : [text];
+}
+
+function renderInlineText(text: string) {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+  
+  linkRegex.lastIndex = 0;
+  
+  while ((match = linkRegex.exec(text)) !== null) {
+    const textBefore = text.slice(lastIndex, match.index);
+    const linkText = match[1];
+    const linkUrl = match[2];
+    
+    if (textBefore) {
+      parts.push(...parseBoldText(textBefore));
+    }
+    
+    const isInternal = linkUrl.startsWith("/");
+    if (isInternal) {
+      parts.push(
+        <Link
+          key={match.index}
+          href={linkUrl}
+          className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+        >
+          {linkText}
+        </Link>
+      );
+    } else {
+      parts.push(
+        <a
+          key={match.index}
+          href={linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+        >
+          {linkText}
+        </a>
+      );
+    }
+    
+    lastIndex = linkRegex.lastIndex;
+  }
+  
+  const textAfter = text.slice(lastIndex);
+  if (textAfter) {
+    parts.push(...parseBoldText(textAfter));
+  }
+  
+  return parts.length > 0 ? parts : text;
+}
+
 function renderContent(content: string) {
   return content
     .trim()
@@ -31,12 +117,14 @@ function renderContent(content: string) {
         const heading = lines[0].replace(/\*\*/g, "").replace(":", "");
         return (
           <div key={i} className="mb-4">
-            <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
+            <h2 className="mb-3 text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
               {heading}
-            </h3>
+            </h2>
             <ul className="list-inside list-disc space-y-1 text-zinc-600 dark:text-zinc-400">
               {lines.slice(1).map((line, j) => (
-                <li key={j}>{line.replace(/^-\s*/, "").replace(/\*\*/g, "")}</li>
+                <li key={j}>
+                  {renderInlineText(line.replace(/^-\s*/, ""))}
+                </li>
               ))}
             </ul>
           </div>
@@ -44,7 +132,7 @@ function renderContent(content: string) {
       }
       return (
         <p key={i} className="mb-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
-          {block.replace(/\*\*(.*?)\*\*/g, "$1")}
+          {renderInlineText(block)}
         </p>
       );
     });

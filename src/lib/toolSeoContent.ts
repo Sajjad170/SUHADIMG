@@ -29,7 +29,6 @@ function actionVerb(tool: ToolConfig): string {
 }
 
 function howToSteps(tool: ToolConfig): string[] {
-  const verb = actionVerb(tool);
   const base = [
     `Visit the ${tool.title} page on SUHADIMG at suhadimg.site — no account needed.`,
     `Click the upload area or drag and drop your ${formatListForSeo(tool.inputFormats)} file(s). You can select multiple files for batch processing.`,
@@ -45,7 +44,7 @@ function howToSteps(tool: ToolConfig): string[] {
   return base;
 }
 
-function useCases(tool: ToolConfig): string[] {
+function getUseCases(tool: ToolConfig): string[] {
   const base: Record<ToolConfig["operation"], string[]> = {
     convert: [
       "Preparing images for websites that require a specific format (JPG, PNG, WebP)",
@@ -344,7 +343,7 @@ export function buildToolSeoSections(tool: ToolConfig): ToolSeoSections {
     whoShouldUse: whoShouldUse(tool),
     howToTitle: `How to Use ${tool.title}`,
     steps: howToSteps(tool),
-    useCases: useCases(tool),
+    useCases: getUseCases(tool),
     benefits: benefits(tool),
     features: features(tool),
     supportedFormatsTitle: "Supported Formats",

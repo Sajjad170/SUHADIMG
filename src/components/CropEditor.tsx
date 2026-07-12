@@ -99,8 +99,8 @@ export function CropEditor({ imageUrl, onCropChange }: CropEditorProps) {
       else nh = nw / ratio;
     }
 
-    let nx = Math.max(0, Math.min(x, natural.w - nw));
-    let ny = Math.max(0, Math.min(y, natural.h - nh));
+    const nx = Math.max(0, Math.min(x, natural.w - nw));
+    const ny = Math.max(0, Math.min(y, natural.h - nh));
 
     if (nx + nw > natural.w) nw = natural.w - nx;
     if (ny + nh > natural.h) nh = natural.h - ny;
@@ -166,10 +166,10 @@ export function CropEditor({ imageUrl, onCropChange }: CropEditorProps) {
       const y1 = dragStart.current.y;
       const x2 = coords.x;
       const y2 = coords.y;
-      let nx = Math.min(x1, x2);
-      let ny = Math.min(y1, y2);
-      let nw = Math.abs(x2 - x1);
-      let nh = Math.abs(y2 - y1);
+      const nx = Math.min(x1, x2);
+      const ny = Math.min(y1, y2);
+      const nw = Math.abs(x2 - x1);
+      const nh = Math.abs(y2 - y1);
       const next = clampCrop(nx, ny, nw, nh);
       setCrop(next);
       emitCrop(next.x, next.y, next.w, next.h);

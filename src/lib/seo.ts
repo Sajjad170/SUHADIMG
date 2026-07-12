@@ -66,9 +66,9 @@ export function buildToolSeoTitle(tool: ToolConfig): string {
 
 export function getHomeMetadata(): Metadata {
   const title =
-    "Free Image Converter Online | SUHADIMG - Compress, Resize & Convert";
+    "Free Image Converter & Editor Online | SUHADIMG";
   const description =
-    "Convert JPG, PNG, WEBP and other image formats online for free. Fast, secure and no upload limits with SUHADIMG. Compress, resize, crop and edit images instantly.";
+    "Free online image converter and editor. Fast, secure, and no limits. Compress, resize, crop, and convert JPG, PNG, WebP, and more instantly with SUHADIMG.";
 
   return {
     title: { absolute: title },
@@ -117,14 +117,14 @@ export function getToolMetadata(
 
 export function getLocalizedHomeMetadata(locale: Locale): Metadata {
   const titles: Record<Locale, string> = {
-    en: "Free Image Converter Online | SUHADIMG - Compress, Resize & Convert",
+    en: "Free Image Converter & Editor Online | SUHADIMG",
     es: "Convertidor de Imágenes Gratis | SUHADIMG - Comprimir y Convertir",
     ja: "無料画像変換 | SUHADIMG - 圧縮・リサイズ・変換",
     de: "Kostenloser Bildkonverter | SUHADIMG - Komprimieren & Konvertieren",
     fr: "Convertisseur d'Images Gratuit | SUHADIMG - Compresser & Convertir",
   };
   const descriptions: Record<Locale, string> = {
-    en: "Convert JPG, PNG, WEBP and other image formats online for free at suhadimg.site. Fast, secure and no upload limits with SUHADIMG.",
+    en: "Free online image converter and editor. Fast, secure, and no limits. Compress, resize, crop, and convert JPG, PNG, WebP, and more instantly with SUHADIMG.",
     es: "Convierte JPG, PNG, WEBP y más formatos gratis en suhadimg.site. Rápido, seguro y sin límites con SUHADIMG.",
     ja: "JPG、PNG、WebPなどをsuhadimg.siteで無料変換。高速・安全・制限なしのSUHADIMG。",
     de: "Konvertieren Sie JPG, PNG, WebP kostenlos auf suhadimg.site. Schnell, sicher, ohne Limits mit SUHADIMG.",

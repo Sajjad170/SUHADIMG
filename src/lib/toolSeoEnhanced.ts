@@ -186,23 +186,22 @@ function industryUseCases(tool: ToolConfig): IndustryUseCase[] {
 
 function richIntroduction(tool: ToolConfig): string {
   const inputs = formatListForSeo(tool.inputFormats);
-  const name = tool.title;
 
   if (tool.slug === "compress-image") {
-    return `${name} Online Free with SUHADIMG to reduce JPG, JPEG, PNG, WebP, GIF, AVIF, SVG, and BMP file sizes without noticeable quality loss. Whether you are optimizing images for websites, WordPress, Shopify, email attachments, social media, online forms, or Google PageSpeed Insights, our free image compressor helps you create smaller files while maintaining excellent visual quality. No signup, no watermark, and your files are automatically deleted after processing on suhadimg.site.`;
+    return `SUHADIMG is a free online image compressor that lets you compress JPG, PNG, WebP, GIF, AVIF, SVG, and BMP file sizes safely without losing visual quality. Whether you are optimizing images for websites, WordPress, Shopify, email attachments, social media, online forms, or Google PageSpeed Insights, our free image compressor helps you create smaller files while maintaining excellent visual quality. No signup, no watermark, and your files are automatically deleted after processing on suhadimg.site.`;
   }
 
   const byOp: Partial<Record<ToolConfig["operation"], string>> = {
-    compress: `${name} Online Free with SUHADIMG — reduce ${inputs} file size for faster websites, email, and uploads. Our online photo compressor and image optimizer lets you shrink images, lower KB size, and optimize photos without a watermark. Files are deleted instantly after download.`,
-    convert: `Free ${name} with SUHADIMG — convert ${inputs} online in seconds. Whether you need to change format for WordPress, Shopify, social media, or client deliverables, this image converter handles batch jobs with no signup. Your files never stay on our servers.`,
-    resize: `${name} Free Online with SUHADIMG — set exact pixels for Instagram, YouTube, passports, and websites. Resize photos, scale images, and prepare thumbnails without installing software. Privacy-first processing at suhadimg.site.`,
-    crop: `Free ${name} on SUHADIMG — crop photos online with a visual editor. Perfect for profile pictures, product shots, and social posts. No watermark, batch-friendly, files deleted immediately.`,
-    removeBackground: `Free ${name} with SUHADIMG — remove image backgrounds online using AI. Ideal for e-commerce, headshots, and marketing assets. Process in your browser session; we do not store your photos.`,
+    compress: `SUHADIMG is a free online image optimizer that lets you compress and shrink ${inputs} files safely. It reduces the size of your images in kilobytes without quality loss for faster websites, email, and uploads. No signup or watermark, and all images are deleted instantly after download.`,
+    convert: `SUHADIMG is a free online image converter that lets you convert ${inputs} images instantly in your browser. Whether you need to change formats for WordPress, Shopify, social media, or client deliverables, this tool handles batch files securely with no registration.`,
+    resize: `SUHADIMG is a free online image resizer that lets you change the dimensions of your photos in pixels or percentages. Easily set exact sizes for Instagram, YouTube, passports, and websites, and prepare thumbnails without installing software.`,
+    crop: `SUHADIMG is a free online image cropper that lets you crop photo boundaries visually. Perfect for profile pictures, product shots, and social posts with no watermark, batch-friendly speed, and instant file deletion.`,
+    removeBackground: `SUHADIMG is a free online AI background remover that automatically isolates subjects and removes image backdrops in seconds. Ideal for e-commerce, headshots, and marketing assets, processing securely in your browser session.`,
   };
 
   return (
     byOp[tool.operation] ??
-    `${name} Free Online with SUHADIMG — process ${inputs} securely with no signup. Fast Sharp-powered results, batch ZIP download, and instant file deletion. Trusted image tool at suhadimg.site.`
+    `SUHADIMG is a free online image editor and utility suite that lets you process ${inputs} securely with no signup. Experience fast Sharp-powered results, batch ZIP downloads, and instant file deletion at suhadimg.site.`
   );
 }
 

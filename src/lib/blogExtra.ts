@@ -176,7 +176,7 @@ PNG is excellent for graphics with transparency, but JPG is often required for e
 - Clients who only accept JPEG deliverables
 
 **Steps with SUHADIMG:**
-1. Open the PNG to JPG converter on suhadimg.site
+1. Open the [PNG to JPG converter](/png-to-jpg) on suhadimg.site
 2. Upload your PNG — batch mode supported
 3. Choose quality around 85% for photos
 4. Download JPG instantly — no watermark
@@ -200,7 +200,7 @@ Cropping removes unwanted edges and reframes the subject. Online croppers are id
 - Crop before compressing to maximize file size savings
 - Preview at full zoom before downloading
 
-SUHADIMG's crop tool offers a visual editor with live preview — upload, drag the crop box, and download in seconds.
+SUHADIMG's [crop tool](/crop-image) offers a visual editor with live preview — upload, drag the crop box, and download in seconds.
   `,
   "compress-image-to-100kb": `
 Many online forms cap uploads at 100KB or 200KB. Hitting that target requires both resizing and compression.
@@ -222,7 +222,7 @@ Passport and visa photos have strict rules that vary by country. Always check yo
 - Resize to exact pixel dimensions — do not rely on print scaling alone
 - Export JPG at high quality for printing
 
-SUHADIMG's resize tool lets you enter exact width and height in pixels for precise output.
+SUHADIMG's [resize tool](/resize-image) lets you enter exact width and height in pixels for precise output.
   `,
   "gif-vs-png-for-web": `
 GIF supports animation but only 256 colors per frame. PNG supports millions of colors and full transparency but not animation (unless using APNG, which has limited support).
@@ -270,7 +270,7 @@ Background removal isolates the subject for product listings, headshots, and pre
 - Avoid busy backgrounds when possible
 - Export as PNG to keep transparency
 
-SUHADIMG processes backgrounds in your browser session — images are not stored after download.
+SUHADIMG's [background remover](/background-remover) processes backgrounds in your browser session — images are not stored after download.
   `,
   "watermark-images-for-copyright": `
 Watermarks deter casual copying of photography and design work shared online.
@@ -280,12 +280,12 @@ Watermarks deter casual copying of photography and design work shared online.
 - Balance visibility with aesthetics — do not ruin the image
 - Keep a non-watermarked master file for paying clients
 
-SUHADIMG's watermark tool supports text and image stamps with adjustable opacity and position.
+SUHADIMG's [watermark tool](/watermark-image) supports text and image stamps with adjustable opacity and position.
   `,
   "how-to-rotate-images-online": `
 Photos from phones often arrive rotated because orientation metadata is ignored by some apps.
 
-**SUHADIMG rotate tool:**
+**SUHADIMG's [rotate tool](/rotate-image):**
 - Rotate 90°, 180°, or 270°
 - Batch rotate multiple files
 - Works on JPG, PNG, WebP, and GIF
@@ -299,7 +299,7 @@ Browser-based editors cover most casual needs: brightness, contrast, text overla
 
 **Not a replacement for:** Advanced retouching, RAW development, or print color management.
 
-SUHADIMG's photo editor combines essential adjustments with our full suite of convert and compress tools in one site.
+SUHADIMG's [photo editor](/photo-editor) combines essential adjustments with our full suite of convert and compress tools in one site.
   `,
   "image-tools-for-web-developers": `
 Developers optimize images constantly — hero banners, thumbnails, Open Graph images, and favicons.
@@ -343,7 +343,7 @@ iPhones save photos as HEIC by default. Windows and many websites still expect J
 - Uploading to WordPress, forms, or legacy apps
 - Editing in tools without HEIC support
 
-SUHADIMG converts HEIC to JPG free with privacy-first processing — no files stored.
+SUHADIMG's [HEIC to JPG converter](/heic-to-jpg) converts HEIC to JPG free with privacy-first processing — no files stored.
   `,
   "prepare-images-for-google-adsense": `
 AdSense approval requires a useful site — not just a bare upload button.

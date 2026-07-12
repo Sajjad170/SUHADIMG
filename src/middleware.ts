@@ -30,10 +30,20 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set("x-locale", locale);
-  response.headers.set(
-    "Cache-Control",
-    "public, max-age=0, s-maxage=300, stale-while-revalidate=600"
-  );
+
+  // Homepage must never be CDN-cached — stale HTML breaks CSS after redeploys.
+  if (pathname === "/") {
+    response.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+  } else {
+    response.headers.set(
+      "Cache-Control",
+      "public, max-age=0, s-maxage=300, stale-while-revalidate=600"
+    );
+  }
+
   return response;
 }
 

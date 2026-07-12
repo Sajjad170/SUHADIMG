@@ -8,9 +8,13 @@ import { ComingSoonSection } from "@/components/ComingSoonSection";
 import { blogPosts } from "@/lib/blogPosts";
 import { getHomeMetadata } from "@/lib/seo";
 import { homepageItemListJsonLd } from "@/lib/structuredData";
-import { Zap, Shield, Globe, Sparkles } from "lucide-react";
+import { Zap, Shield, Globe, Sparkles, Lock } from "lucide-react";
 
 export const metadata = getHomeMetadata();
+
+/** Always render fresh HTML so redeploys never serve stale CSS chunk URLs on `/`. */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default function HomePage() {
   return (
@@ -133,6 +137,75 @@ export default function HomePage() {
             >
               View all articles →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Homepage Detailed Copy / Helpful Content */}
+      <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_400px]">
+        <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 sm:p-8">
+          <h2 className="mb-4 text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl">
+            Free Image Converter &amp; Editor Suite Online
+          </h2>
+          <p className="mb-6 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+            SUHADIMG is your all-in-one web platform for batch image processing. Whether you need to compress large photo files to fit email limits, crop design files for social media dimensions, convert modern WebP images to universal JPG format, or edit visual assets on the go, our suite offers production-grade speed without compromising privacy.
+          </p>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
+                ⚡ Lightning-Fast Sharp Processing
+              </h3>
+              <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                Unlike client-side JavaScript tools that crash on large camera exports, our backend leverages the multi-threaded Sharp library to compress, convert, or resize images instantly.
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
+                🛡️ Privacy &amp; Data Security First
+              </h3>
+              <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                Your images are processed purely in-memory. We enforce automatic file deletion, zero tracking databases, and use complete HTTPS encryption. No registration or payment is required.
+              </p>
+            </div>
+            <div>
+              <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
+                💡 Perfect for Social Media &amp; Web Developers
+              </h3>
+              <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                Convert or resize screenshots to standard social network ratios (Instagram, Facebook, X), or export next-gen WebP formats to pass Google Lighthouse Core Web Vitals checks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security & Trust Standards Section */}
+      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_250px]">
+        <div className="rounded-2xl border border-zinc-200 bg-gradient-to-r from-zinc-50 to-blue-50/20 p-6 dark:border-zinc-800 dark:from-zinc-900 dark:to-blue-950/10 sm:p-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-2">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-white sm:text-xl">
+                Security &amp; Trust Standards
+              </h2>
+              <p className="max-w-xl text-xs text-zinc-500 dark:text-zinc-400">
+                SUHADIMG utilizes industry-leading safety protocols. Your privacy is guaranteed through local memory processing, secure HTTPS transmissions, and automatic file deletion.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
+                <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <span>GDPR &amp; Privacy Compliant</span>
+              </div>
+              <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
+                <Lock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                <span>HTTPS SSL Secure Encryption</span>
+              </div>
+              <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
+                <Zap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <span>ISO 27001 Security Principles</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -5,7 +5,7 @@ import { getToolBySlug, type ToolConfig, type ToolFAQ } from "./tools";
 import { buildToolSeoTitle, SITE_NAME, SITE_URL } from "./seo";
 
 const SITE_DESCRIPTION =
-  "Convert JPG, PNG, WEBP and other image formats online for free. Fast, secure and no upload limits with SUHADIMG.";
+  "Free online image converter and editor. Fast, secure, and no limits. Compress, resize, crop, and convert JPG, PNG, WebP, and more instantly with SUHADIMG.";
 
 export function organizationJsonLd() {
   return {

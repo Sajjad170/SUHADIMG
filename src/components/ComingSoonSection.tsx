@@ -46,7 +46,7 @@ function CardIllustration({ type }: { type: "pdf" | "ai" | "api" }) {
         <div className="space-y-1 font-mono text-[8px] leading-tight">
           <p className="text-purple-400">POST /api/v1/resize</p>
           <p className="text-green-400">{"{ ok: true }"}</p>
-          <p className="text-zinc-500">// batch: 50 images</p>
+          <p className="text-zinc-500">{"// batch: 50 images"}</p>
         </div>
       </div>
       <div className="absolute -bottom-1 -right-1 h-12 w-12 rounded-lg border-2 border-white bg-blue-500 shadow" />
@@ -69,6 +69,7 @@ export function ComingSoonSection() {
               <Link
                 key={tool.slug}
                 href={`/coming-soon/${tool.slug}`}
+                aria-label={tool.cardTitle}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-blue-800"
               >
                 <div

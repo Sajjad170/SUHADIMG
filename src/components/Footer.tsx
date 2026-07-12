@@ -143,6 +143,11 @@ export function Footer() {
               Sitemap
             </Link>
           </div>
+          <div className="mb-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-zinc-400 dark:text-zinc-500">
+            <span className="flex items-center gap-1">🔒 HTTPS Secure</span>
+            <span className="flex items-center gap-1">🛡️ GDPR Compliant</span>
+            <span className="flex items-center gap-1">⚙️ ISO 27001 Security Principles</span>
+          </div>
           <p className="text-center text-sm text-zinc-500 dark:text-zinc-500">
             © {new Date().getFullYear()} SUHADIMG. All rights reserved.
             Files are processed in memory and deleted immediately.
