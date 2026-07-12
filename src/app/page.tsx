@@ -22,9 +22,9 @@ export default function HomePage() {
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <LogoWithName variant="hero" priority className="mb-4" />
           <h1 className="mb-4 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
-            Free Image Converter &amp; Editor Online
+            Free Online Image Converter & Editor Tool
           </h1>
-          <div className="max-w-2xl space-y-3 text-left text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+          <div className="max-w-2xl space-y-3 text-left text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
             <p>
               SUHADIMG is a free online image converter and editor built for
               speed, security, and simplicity. Compress large photos, resize
@@ -93,10 +93,10 @@ export default function HomePage() {
                 <Icon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="min-w-0">
-                <h3 className="truncate text-xs font-semibold text-zinc-900 dark:text-white">
+                <h3 className="truncate text-sm font-semibold text-zinc-900 dark:text-white">
                   {title}
                 </h3>
-                <p className="truncate text-[10px] text-zinc-500 dark:text-zinc-400">{desc}</p>
+                <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">{desc}</p>
               </div>
             </div>
           ))}
@@ -133,7 +133,7 @@ export default function HomePage() {
                 <li>Free batch image converter — download as ZIP</li>
                 <li>Privacy-first — files deleted immediately</li>
                 <li>Mobile-friendly with dark mode</li>
-                <li>46+ tools: compress, resize, crop, edit &amp; more</li>
+                <li>46+ tools: compress, resize, crop, edit and more</li>
               </ul>
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
-                🛡️ Privacy &amp; Data Security First
+                Privacy and Data Security First
               </h3>
               <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                 Your images are processed purely in-memory. We enforce automatic file deletion, zero tracking databases, and use complete HTTPS encryption. No registration or payment is required.
@@ -204,7 +204,7 @@ export default function HomePage() {
             </div>
             <div>
               <h3 className="mb-2 font-semibold text-zinc-900 dark:text-white">
-                💡 Perfect for Social Media &amp; Web Developers
+                Perfect for Social Media and Web Developers
               </h3>
               <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                 Convert or resize screenshots to standard social network ratios (Instagram, Facebook, X), or export next-gen WebP formats to pass Google Lighthouse Core Web Vitals checks.
@@ -220,7 +220,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="space-y-2">
               <h2 className="text-lg font-bold text-zinc-900 dark:text-white sm:text-xl">
-                Security &amp; Trust Standards
+                Security and Trust Standards
               </h2>
               <p className="max-w-xl text-xs text-zinc-500 dark:text-zinc-400">
                 SUHADIMG utilizes industry-leading safety protocols. Your privacy is guaranteed through local memory processing, secure HTTPS transmissions, and automatic file deletion.
@@ -229,7 +229,7 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-3 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
               <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
                 <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
-                <span>GDPR &amp; Privacy Compliant</span>
+                <span>GDPR and Privacy Compliant</span>
               </div>
               <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
                 <Lock className="h-4 w-4 text-blue-600 dark:text-blue-400" />

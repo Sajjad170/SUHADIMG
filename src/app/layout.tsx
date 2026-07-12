@@ -12,7 +12,6 @@ import { SiteDecorations } from "@/components/SiteDecorations";
 import { getHomeMetadata, SITE_NAME } from "@/lib/seo";
 import {
   organizationJsonLd,
-  siteNavigationJsonLd,
   websiteJsonLd,
 } from "@/lib/structuredData";
 import "./globals.css";
@@ -31,7 +30,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   ...getHomeMetadata(),
   title: {
-    default: "Free Image Converter & Editor Online | SUHADIMG",
+    default: "Free Online Image Converter & Editor Tool | SUHADIMG",
     template: `%s | ${SITE_NAME}`,
   },
   metadataBase: new URL(
@@ -63,7 +62,7 @@ export default function RootLayout({
           }}
         />
         <JsonLd
-          data={[organizationJsonLd(), websiteJsonLd(), siteNavigationJsonLd()]}
+          data={[organizationJsonLd(), websiteJsonLd()]}
         />
         <Analytics />
         <HtmlLangSetter />

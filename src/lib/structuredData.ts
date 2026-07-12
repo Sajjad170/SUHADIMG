@@ -5,7 +5,7 @@ import { getToolBySlug, type ToolConfig, type ToolFAQ } from "./tools";
 import { buildToolSeoTitle, SITE_NAME, SITE_URL } from "./seo";
 
 const SITE_DESCRIPTION =
-  "Free online image converter and editor. Fast, secure, and no limits. Compress, resize, crop, and convert JPG, PNG, WebP, and more instantly with SUHADIMG.";
+  "Free image converter & editor online. Compress, resize, crop & convert JPG, PNG, WebP. Secure, no signup — SUHADIMG.";
 
 export function organizationJsonLd() {
   return {
@@ -15,6 +15,7 @@ export function organizationJsonLd() {
     name: SITE_NAME,
     url: SITE_URL,
     email: COMPANY.email,
+    telephone: COMPANY.phone,
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}/logo.png`,
@@ -22,6 +23,7 @@ export function organizationJsonLd() {
     description: SITE_DESCRIPTION,
     parentOrganization: {
       "@type": "Organization",
+      "@id": `${COMPANY.url}#organization`,
       name: COMPANY.name,
       url: COMPANY.url,
     },
@@ -45,14 +47,6 @@ export function websiteJsonLd() {
     description: SITE_DESCRIPTION,
     publisher: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "en",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/tools`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -81,20 +75,30 @@ export function siteNavigationJsonLd() {
 }
 
 export function homepageItemListJsonLd() {
+  const itemListElement = homeTools.map((homeTool, index) => {
+    const tool = getToolBySlug(homeTool.slug);
+    const url = `${SITE_URL}/${homeTool.slug}`;
+    const name = tool ? tool.title : homeTool.titlePrefix;
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "WebPage",
+        "@id": url,
+        name,
+        url,
+        description: homeTool.description,
+      },
+    };
+  });
+
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "@id": `${SITE_URL}/#featured-tools`,
     name: "SUHADIMG featured image tools",
-    itemListElement: homeTools.map((homeTool, index) => {
-      const tool = getToolBySlug(homeTool.slug);
-      return {
-        "@type": "ListItem",
-        position: index + 1,
-        name: tool ? buildToolSeoTitle(tool) : homeTool.titlePrefix,
-        url: `${SITE_URL}/${homeTool.slug}`,
-        description: homeTool.description,
-      };
-    }),
+    numberOfItems: itemListElement.length,
+    itemListElement,
   };
 }
 
