@@ -7,59 +7,75 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ComingSoonSection } from "@/components/ComingSoonSection";
 import { blogPosts } from "@/lib/blogPosts";
 import { getHomeMetadata } from "@/lib/seo";
-import { homepageItemListJsonLd } from "@/lib/structuredData";
+import { homepageItemListJsonLd, homepageFaqJsonLd } from "@/lib/structuredData";
+import { GLOBAL_FAQS } from "@/lib/globalFaqs";
 import { Zap, Shield, Globe, Sparkles, Lock } from "lucide-react";
 
 export const metadata = getHomeMetadata();
 
-/** Always render fresh HTML so redeploys never serve stale CSS chunk URLs on `/`. */
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={homepageItemListJsonLd()} />
+      <JsonLd data={[homepageItemListJsonLd(), homepageFaqJsonLd()]} />
 
-      <section className="px-4 pb-2 pt-8 sm:px-6 sm:pt-10 lg:px-8">
+      <section className="px-4 pb-4 pt-8 sm:px-6 sm:pt-10 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <LogoWithName variant="hero" priority className="mb-4" />
-          <h1 className="mb-3 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
+          <h1 className="mb-4 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
             Free Image Converter &amp; Editor Online
           </h1>
-          <p className="max-w-2xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
-            Free online image converter and editor. Fast, secure, and no limits.
-            Compress, resize, crop, and convert JPG, PNG, WebP, and more
-            instantly with SUHADIMG — 100% free, no signup, files deleted
-            immediately.
-          </p>
+          <div className="max-w-2xl space-y-3 text-left text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+            <p>
+              SUHADIMG is a free online image converter and editor built for
+              speed, security, and simplicity. Compress large photos, resize
+              images for social media, crop screenshots, and convert JPG, PNG,
+              WebP, GIF, HEIC, AVIF, and more — directly in your browser with
+              no signup required.
+            </p>
+            <p>
+              Every tool runs on secure HTTPS with in-memory processing and
+              automatic file deletion. Batch upload multiple images and download
+              results as a ZIP file. Whether you need a quick PNG to JPG
+              conversion or a full photo editing workflow, SUHADIMG delivers
+              professional results without watermarks or hidden limits.
+            </p>
+            <p>
+              Explore 46+ free image tools below — from compression and format
+              conversion to background removal, blur effects, and passport photo
+              resizing. Fast, secure, and always free with SUHADIMG.
+            </p>
+          </div>
         </div>
       </section>
 
       <section
-        aria-labelledby="featured-tools-heading"
-        className="mx-auto max-w-6xl px-4 pb-4 pt-2 sm:px-6 lg:px-8"
+        aria-labelledby="all-tools-heading"
+        className="mx-auto max-w-6xl border-t border-zinc-200 px-4 py-8 sm:px-6 lg:px-8 dark:border-zinc-800"
       >
         <h2
-          id="featured-tools-heading"
-          className="mb-4 text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl"
+          id="all-tools-heading"
+          className="mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl"
         >
-          Popular Free Image Tools
+          Free Online Image Tools
         </h2>
+        <h3 className="mb-4 text-center text-base font-semibold text-zinc-800 dark:text-zinc-200">
+          Popular Tools
+        </h3>
         <HomeToolsGrid />
-      </section>
-
-      {/* All tools by category — iloveimg-style cards directly under featured grid */}
-      <section className="mx-auto max-w-6xl border-t border-zinc-200 px-4 py-10 sm:px-6 lg:px-8 dark:border-zinc-800 [content-visibility:auto] [contain-intrinsic-size:auto_900px]">
-        <CategoryToolsSection />
+        <div className="mt-10">
+          <CategoryToolsSection headingLevel="h3" />
+        </div>
       </section>
 
       {/* Trust badges */}
       <section
         aria-labelledby="why-choose-heading"
-        className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_200px]"
+        className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8"
       >
-        <h2 id="why-choose-heading" className="sr-only">
+        <h2
+          id="why-choose-heading"
+          className="mb-4 text-center text-xl font-bold text-zinc-900 dark:text-white"
+        >
           Why Choose SUHADIMG
         </h2>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
@@ -88,7 +104,7 @@ export default function HomePage() {
       </section>
 
       {/* SEO content sections */}
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_500px]">
+      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 sm:p-8">
           <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-white">
             How to Convert Images Online
@@ -162,8 +178,8 @@ export default function HomePage() {
       {/* Homepage Detailed Copy / Helpful Content */}
       <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_400px]">
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900 sm:p-8">
-          <h2 className="mb-4 text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl">
-            Free Image Converter &amp; Editor Suite Online
+          <h2 className="mb-4 text-xl font-semibold text-zinc-900 dark:text-white">
+            About the SUHADIMG Image Platform
           </h2>
           <p className="mb-6 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             SUHADIMG is your all-in-one web platform for batch image processing. Whether you need to compress large photo files to fit email limits, crop design files for social media dimensions, convert modern WebP images to universal JPG format, or edit visual assets on the go, our suite offers production-grade speed without compromising privacy.
@@ -225,6 +241,32 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="faq-heading"
+        className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8"
+      >
+        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50 sm:p-8">
+          <h2
+            id="faq-heading"
+            className="mb-6 text-xl font-bold text-zinc-900 dark:text-white"
+          >
+            Frequently Asked Questions
+          </h2>
+          <dl className="space-y-5">
+            {GLOBAL_FAQS.map((faq) => (
+              <div key={faq.question}>
+                <dt className="mb-1 text-sm font-semibold text-zinc-900 dark:text-white">
+                  {faq.question}
+                </dt>
+                <dd className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  {faq.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

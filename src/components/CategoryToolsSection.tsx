@@ -19,7 +19,13 @@ import type { Locale } from "@/lib/i18n/config";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { categoryLabel } from "@/lib/i18n/ui";
 
-export function CategoryToolsSection({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
+export function CategoryToolsSection({
+  locale = DEFAULT_LOCALE,
+  headingLevel = "h3",
+}: {
+  locale?: Locale;
+  headingLevel?: "h2" | "h3";
+}) {
   return (
     <div className="space-y-10">
       {categories.map((cat) => {
@@ -31,6 +37,7 @@ export function CategoryToolsSection({ locale = DEFAULT_LOCALE }: { locale?: Loc
         return (
           <section key={cat}>
             <SectionHeading
+              level={headingLevel}
               title={
                 locale === DEFAULT_LOCALE
                   ? CATEGORY_LABELS[cat]

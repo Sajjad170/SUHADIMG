@@ -98,6 +98,21 @@ export function homepageItemListJsonLd() {
   };
 }
 
+export function homepageFaqJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: GLOBAL_FAQS.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 export function toolSoftwareApplicationJsonLd(tool: ToolConfig) {
   return {
     "@context": "https://schema.org",
