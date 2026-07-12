@@ -40,19 +40,12 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set("x-locale", locale);
-
-  // Homepage must never be CDN-cached — stale HTML breaks CSS after redeploys.
-  if (pathname === "/") {
-    response.headers.set(
-      "Cache-Control",
-      "no-store, no-cache, must-revalidate, proxy-revalidate"
-    );
-  } else {
-    response.headers.set(
-      "Cache-Control",
-      "public, max-age=0, s-maxage=300, stale-while-revalidate=600"
-    );
-  }
+  response.headers.set(
+    "Cache-Control",
+    "private, no-cache, no-store, must-revalidate, max-age=0"
+  );
+  response.headers.set("CDN-Cache-Control", "no-store");
+  response.headers.set("Surrogate-Control", "no-store");
 
   return response;
 }

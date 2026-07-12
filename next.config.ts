@@ -34,11 +34,20 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/",
+        source:
+          "/:path((?!_next/static|_next/image|favicon\\.png|logo\\.png|apple-icon\\.png|bg-ai|llms\\.txt).*)",
         headers: [
           {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
             key: "Cache-Control",
-            value: "no-store, no-cache, must-revalidate, proxy-revalidate",
+            value: "private, no-cache, no-store, must-revalidate, max-age=0",
+          },
+          {
+            key: "CDN-Cache-Control",
+            value: "no-store",
           },
         ],
       },
@@ -57,20 +66,6 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source:
-          "/:path((?!_next/static|_next/image|favicon\\.png|logo\\.png|apple-icon\\.png|bg-ai).*)",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "Cache-Control",
-            value: "public, max-age=0, s-maxage=300, stale-while-revalidate=600",
           },
         ],
       },

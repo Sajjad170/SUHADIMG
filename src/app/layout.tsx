@@ -9,7 +9,7 @@ import { CookieConsent } from "@/components/CookieConsentLazy";
 import { LanguageBanner } from "@/components/LanguageBannerLazy";
 import { HtmlLangSetter } from "@/components/HtmlLangSetter";
 import { SiteDecorations } from "@/components/SiteDecorations";
-import { getHomeMetadata, SITE_NAME } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/seo";
 import {
   organizationJsonLd,
   websiteJsonLd,
@@ -28,14 +28,15 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  ...getHomeMetadata(),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://suhadimg.site"
+  ),
   title: {
     default: "Free Online Image Converter & Editor Tool | SUHADIMG",
     template: `%s | ${SITE_NAME}`,
   },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://suhadimg.site"
-  ),
+  description:
+    "Free online image tools by SUHADIMG — compress, convert, resize, crop, and edit images in your browser.",
   verification: {
     google: "dpW8D8FVtrz2NhNSZFpZWUbFwZQRVp22eU8FHfDWmd8",
   },

@@ -5,7 +5,7 @@ import { getPopularTools } from "@/lib/tools";
 import { homeTools } from "@/lib/homepageTools";
 
 export const metadata: Metadata = {
-  title: "Page Not Found",
+  title: { absolute: "Page Not Found | SUHADIMG" },
   robots: { index: false, follow: true },
 };
 

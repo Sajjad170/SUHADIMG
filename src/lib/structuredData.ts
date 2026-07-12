@@ -188,25 +188,6 @@ export function toolPageJsonLdGraph(
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
-        url: SITE_URL,
-        name: SITE_NAME,
-        description: SITE_DESCRIPTION,
-        publisher: { "@id": `${SITE_URL}/#organization` },
-      },
-      {
-        "@type": "Organization",
-        "@id": `${SITE_URL}/#organization`,
-        name: COMPANY.name,
-        url: SITE_URL,
-        email: COMPANY.email,
-        logo: {
-          "@type": "ImageObject",
-          url: `${SITE_URL}/logo.png`,
-        },
-      },
-      {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
         itemListElement: [
@@ -233,15 +214,15 @@ export function toolPageJsonLdGraph(
       {
         "@type": "SoftwareApplication",
         "@id": `${pageUrl}#software`,
-        name: `SUHADIMG ${tool.title}`,
+        name: tool.title,
         url: pageUrl,
         description: tool.metaDescription,
         applicationCategory: "MultimediaApplication",
-        operatingSystem: "Windows, macOS, Linux, iOS, Android",
-        browserRequirements: "Requires HTML5 compatible web browser.",
+        operatingSystem: "Web Browser",
+        browserRequirements: "Requires JavaScript",
         offers: {
           "@type": "Offer",
-          price: "0.00",
+          price: "0",
           priceCurrency: "USD",
         },
         provider: { "@id": `${SITE_URL}/#organization` },
@@ -257,7 +238,6 @@ export function toolPageJsonLdGraph(
           position: index + 1,
           name: step.name,
           text: step.text,
-          url: `${pageUrl}#step${index + 1}`,
         })),
       },
       {

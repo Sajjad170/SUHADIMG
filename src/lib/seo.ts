@@ -151,7 +151,7 @@ export function getBlogMetadata(post: BlogPost): Metadata {
   const url = `${SITE_URL}/blog/${post.slug}`;
 
   return {
-    title: fullTitle,
+    title: { absolute: fullTitle },
     description: post.description,
     keywords: [post.category, ...SEO_KEYWORDS.main.slice(0, 6), SITE_NAME],
     openGraph: {
@@ -176,7 +176,7 @@ export function getPageMetadata(
   const url = `${SITE_URL}${path}`;
 
   return {
-    title: fullTitle,
+    title: { absolute: fullTitle },
     description,
     keywords: [...SEO_KEYWORDS.main.slice(0, 8), SITE_NAME],
     openGraph: baseOpenGraph(fullTitle, description, url),
