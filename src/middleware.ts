@@ -19,6 +19,16 @@ const BOT_PROBE = [
 ];
 
 export function middleware(request: NextRequest) {
+  const host = request.headers.get("host") ?? "";
+
+  // Canonical domain: redirect www → non-www (301)
+  if (host.startsWith("www.")) {
+    const url = request.nextUrl.clone();
+    url.host = host.replace(/^www\./, "");
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 301);
+  }
+
   const pathname = request.nextUrl.pathname;
 
   if (BOT_PROBE.some((pattern) => pattern.test(pathname))) {

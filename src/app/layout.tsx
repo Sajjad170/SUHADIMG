@@ -31,7 +31,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   ...getHomeMetadata(),
   title: {
-    default: `${SITE_NAME} | The fastest free web app for easy image modification.`,
+    default: "Free Image Converter & Editor Online | SUHADIMG",
     template: `%s | ${SITE_NAME}`,
   },
   metadataBase: new URL(

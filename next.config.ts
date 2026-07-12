@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   serverExternalPackages: ["sharp"],
   devIndicators: false,
   transpilePackages: ["@imgly/background-removal"],
@@ -10,6 +11,16 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "jszip"],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.suhadimg.site" }],
+        destination: "https://suhadimg.site/:path*",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

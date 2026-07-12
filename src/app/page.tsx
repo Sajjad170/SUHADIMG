@@ -24,16 +24,28 @@ export default function HomePage() {
       <section className="px-4 pb-2 pt-8 sm:px-6 sm:pt-10 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <LogoWithName variant="hero" priority className="mb-4" />
-          <h1 className="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
-            Free Image Converter Online
+          <h1 className="mb-3 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
+            Free Image Converter &amp; Editor Online
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Convert, compress, resize &amp; edit — 100% free, no signup, files deleted instantly.
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-base">
+            Free online image converter and editor. Fast, secure, and no limits.
+            Compress, resize, crop, and convert JPG, PNG, WebP, and more
+            instantly with SUHADIMG — 100% free, no signup, files deleted
+            immediately.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-4 pt-2 sm:px-6 lg:px-8">
+      <section
+        aria-labelledby="featured-tools-heading"
+        className="mx-auto max-w-6xl px-4 pb-4 pt-2 sm:px-6 lg:px-8"
+      >
+        <h2
+          id="featured-tools-heading"
+          className="mb-4 text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl"
+        >
+          Popular Free Image Tools
+        </h2>
         <HomeToolsGrid />
       </section>
 
@@ -43,7 +55,13 @@ export default function HomePage() {
       </section>
 
       {/* Trust badges */}
-      <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_200px]">
+      <section
+        aria-labelledby="why-choose-heading"
+        className="mx-auto max-w-6xl px-4 pb-6 sm:px-6 lg:px-8 [content-visibility:auto] [contain-intrinsic-size:auto_200px]"
+      >
+        <h2 id="why-choose-heading" className="sr-only">
+          Why Choose SUHADIMG
+        </h2>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
           {[
             { icon: Zap, title: "Lightning Fast", desc: "Instant Sharp processing" },
@@ -82,9 +100,9 @@ export default function HomePage() {
           </p>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-white">
+              <h3 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-white">
                 Supported Formats
-              </h2>
+              </h3>
               <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                 JPG, JPEG, PNG, WebP, GIF, BMP, TIFF, SVG, HEIC, AVIF, and ICO.
                 Convert between formats, compress to reduce file size, or resize for
@@ -92,9 +110,9 @@ export default function HomePage() {
               </p>
             </div>
             <div>
-              <h2 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-white">
+              <h3 className="mb-3 text-lg font-semibold text-zinc-900 dark:text-white">
                 Features
-              </h2>
+              </h3>
               <ul className="list-inside list-disc space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
                 <li>Free batch image converter — download as ZIP</li>
                 <li>Privacy-first — files deleted immediately</li>
