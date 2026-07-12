@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,13 +8,10 @@ import { JsonLd } from "@/components/JsonLd";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CookieConsent } from "@/components/CookieConsentLazy";
 import { LanguageBanner } from "@/components/LanguageBannerLazy";
-import { HtmlLangSetter } from "@/components/HtmlLangSetter";
 import { SiteDecorations } from "@/components/SiteDecorations";
 import { SITE_NAME } from "@/lib/seo";
-import {
-  organizationJsonLd,
-  websiteJsonLd,
-} from "@/lib/structuredData";
+import { siteRootJsonLd } from "@/lib/structuredData";
+import { isLocale, type Locale } from "@/lib/i18n/config";
 import "./globals.css";
 
 /** Keep CDN HTML cache short so redeploys don't serve stale CSS chunk URLs. */
@@ -46,13 +44,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const HTML_LANG: Record<Locale, string> = {
+  en: "en",
+  es: "es",
+  ja: "ja",
+  de: "de",
+  fr: "fr",
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const localeHeader = headersList.get("x-locale") ?? "en";
+  const locale = isLocale(localeHeader) ? localeHeader : "en";
+  const htmlLang = HTML_LANG[locale];
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} flex min-h-screen flex-col bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100`}
       >
@@ -62,11 +73,8 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem("suhadimg-theme");if(t==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark");if(t==="system"){localStorage.setItem("suhadimg-theme","light")}}}catch(e){}})();`,
           }}
         />
-        <JsonLd
-          data={[organizationJsonLd(), websiteJsonLd()]}
-        />
+        <JsonLd data={siteRootJsonLd()} />
         <Analytics />
-        <HtmlLangSetter />
         <SiteDecorations />
         <ThemeProvider>
           <Header />

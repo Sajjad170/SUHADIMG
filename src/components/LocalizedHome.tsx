@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { LogoWithName } from "@/components/Logo";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ComingSoonSection } from "@/components/ComingSoonSection";
-import { homepageItemListJsonLd } from "@/lib/structuredData";
+import { homepageJsonLdGraph } from "@/lib/structuredData";
 import type { Locale } from "@/lib/i18n/config";
 import { ui } from "@/lib/i18n/ui";
 import { Zap, Shield, Globe, Sparkles } from "lucide-react";
@@ -14,7 +14,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <JsonLd data={homepageItemListJsonLd()} />
+      <JsonLd data={homepageJsonLdGraph()} />
       <section className="px-4 pb-2 pt-8 sm:px-6 sm:pt-10 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <LogoWithName variant="hero" priority className="mb-4" />

@@ -146,6 +146,17 @@ export function getLocalizedHomeMetadata(locale: Locale): Metadata {
   };
 }
 
+function englishOnlyHreflang(path: string): Metadata["alternates"] {
+  const url = `${SITE_URL}${path}`;
+  return {
+    canonical: url,
+    languages: {
+      en: url,
+      "x-default": url,
+    },
+  };
+}
+
 export function getBlogMetadata(post: BlogPost): Metadata {
   const fullTitle = `${post.title} | ${SITE_NAME}`;
   const url = `${SITE_URL}/blog/${post.slug}`;
@@ -163,7 +174,7 @@ export function getBlogMetadata(post: BlogPost): Metadata {
       tags: [post.category, "image tools", "SUHADIMG"],
     },
     twitter: baseTwitter(fullTitle, post.description),
-    alternates: { canonical: url },
+    alternates: englishOnlyHreflang(`/blog/${post.slug}`),
   };
 }
 
@@ -181,7 +192,7 @@ export function getPageMetadata(
     keywords: [...SEO_KEYWORDS.main.slice(0, 8), SITE_NAME],
     openGraph: baseOpenGraph(fullTitle, description, url),
     twitter: baseTwitter(fullTitle, description),
-    alternates: { canonical: url },
+    alternates: englishOnlyHreflang(path),
   };
 }
 

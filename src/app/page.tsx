@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ComingSoonSection } from "@/components/ComingSoonSection";
 import { blogPosts } from "@/lib/blogPosts";
 import { getHomeMetadata } from "@/lib/seo";
-import { homepageItemListJsonLd, homepageFaqJsonLd } from "@/lib/structuredData";
+import { homepageJsonLdGraph } from "@/lib/structuredData";
 import { GLOBAL_FAQS } from "@/lib/globalFaqs";
 import { Zap, Shield, Globe, Sparkles, Lock } from "lucide-react";
 
@@ -16,53 +16,34 @@ export const metadata = getHomeMetadata();
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={[homepageItemListJsonLd(), homepageFaqJsonLd()]} />
+      <JsonLd data={homepageJsonLdGraph()} />
 
-      <section className="px-4 pb-4 pt-8 sm:px-6 sm:pt-10 lg:px-8">
+      <section className="px-4 pb-2 pt-6 sm:px-6 sm:pt-8 lg:px-8">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <LogoWithName variant="hero" priority className="mb-4" />
-          <h1 className="mb-4 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
+          <LogoWithName variant="hero" priority className="mb-3" />
+          <h1 className="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
             Free Online Image Converter & Editor Tool
           </h1>
-          <div className="max-w-2xl space-y-3 text-left text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-            <p>
-              SUHADIMG is a free online image converter and editor built for
-              speed, security, and simplicity. Compress large photos, resize
-              images for social media, crop screenshots, and convert JPG, PNG,
-              WebP, GIF, HEIC, AVIF, and more — directly in your browser with
-              no signup required.
-            </p>
-            <p>
-              Every tool runs on secure HTTPS with in-memory processing and
-              automatic file deletion. Batch upload multiple images and download
-              results as a ZIP file. Whether you need a quick PNG to JPG
-              conversion or a full photo editing workflow, SUHADIMG delivers
-              professional results without watermarks or hidden limits.
-            </p>
-            <p>
-              Explore 46+ free image tools below — from compression and format
-              conversion to background removal, blur effects, and passport photo
-              resizing. Fast, secure, and always free with SUHADIMG.
-            </p>
-          </div>
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            SUHADIMG is a free online image converter and editor — compress,
+            resize, crop, and convert JPG, PNG, WebP, GIF, HEIC, and more in
+            your browser. No signup required.
+          </p>
         </div>
       </section>
 
       <section
         aria-labelledby="all-tools-heading"
-        className="mx-auto max-w-6xl border-t border-zinc-200 px-4 py-8 sm:px-6 lg:px-8 dark:border-zinc-800"
+        className="mx-auto max-w-6xl px-4 pb-4 pt-2 sm:px-6 lg:px-8"
       >
         <h2
           id="all-tools-heading"
-          className="mb-6 text-center text-xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-2xl"
+          className="sr-only"
         >
           Free Online Image Tools
         </h2>
-        <h3 className="mb-4 text-center text-base font-semibold text-zinc-800 dark:text-zinc-200">
-          Popular Tools
-        </h3>
         <HomeToolsGrid />
-        <div className="mt-10">
+        <div className="mt-8">
           <CategoryToolsSection headingLevel="h3" />
         </div>
       </section>

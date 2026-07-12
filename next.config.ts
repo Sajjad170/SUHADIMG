@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "jszip"],
+    inlineCss: true,
   },
   async redirects() {
     return [
@@ -48,6 +49,19 @@ const nextConfig: NextConfig = {
           {
             key: "CDN-Cache-Control",
             value: "no-store",
+          },
+        ],
+      },
+      {
+        source: "/llms.txt",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "text/plain; charset=utf-8",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400",
           },
         ],
       },

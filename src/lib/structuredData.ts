@@ -7,11 +7,34 @@ import { buildToolSeoTitle, SITE_NAME, SITE_URL } from "./seo";
 const SITE_DESCRIPTION =
   "Free image converter & editor online. Compress, resize, crop & convert JPG, PNG, WebP. Secure, no signup — SUHADIMG.";
 
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+
+function stripContext<T extends Record<string, unknown>>(node: T): Omit<T, "@context"> {
+  const { "@context": _context, ...rest } = node;
+  return rest;
+}
+
+export function organizationStub() {
+  return { "@type": "Organization" as const, "@id": ORG_ID };
+}
+
+export function websiteStub() {
+  return { "@type": "WebSite" as const, "@id": WEBSITE_ID };
+}
+
+export function siteRootJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [stripContext(organizationJsonLd()), stripContext(websiteJsonLd())],
+  };
+}
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${SITE_URL}/#organization`,
+    "@id": ORG_ID,
     name: SITE_NAME,
     url: SITE_URL,
     email: COMPANY.email,
@@ -41,11 +64,11 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${SITE_URL}/#website`,
+    "@id": WEBSITE_ID,
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    publisher: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": ORG_ID },
     inLanguage: "en",
   };
 }
@@ -132,8 +155,8 @@ export function toolSoftwareApplicationJsonLd(tool: ToolConfig) {
       price: "0",
       priceCurrency: "USD",
     },
-    provider: { "@id": `${SITE_URL}/#organization` },
-    isPartOf: { "@id": `${SITE_URL}/#website` },
+    provider: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
   };
 }
 
@@ -172,7 +195,7 @@ export interface HowToStepForSchema {
   text: string;
 }
 
-/** Unified @graph JSON-LD for tool pages — WebSite, Organization, Breadcrumb, Software, HowTo, FAQ, WebPage. */
+/** Unified @graph JSON-LD for tool pages — Breadcrumb, Software, HowTo, FAQ, WebPage. */
 export function toolPageJsonLdGraph(
   tool: ToolConfig,
   faqs: ToolFAQ[],
@@ -184,85 +207,97 @@ export function toolPageJsonLdGraph(
       ? "How to Compress Images Online Free"
       : `How to use ${tool.title}`;
 
+  const graph: Record<string, unknown>[] = [
+    organizationStub(),
+    websiteStub(),
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Image Tools",
+          item: `${SITE_URL}/tools`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: tool.title,
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl}#software`,
+      name: tool.title,
+      url: pageUrl,
+      description: tool.metaDescription,
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Web Browser",
+      browserRequirements: "Requires JavaScript",
+      image: `${SITE_URL}/og-image.png`,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      provider: { "@id": ORG_ID },
+      isPartOf: { "@id": WEBSITE_ID },
+    },
+  ];
+
+  if (howToSteps.length >= 2) {
+    graph.push({
+      "@type": "HowTo",
+      "@id": `${pageUrl}#howto`,
+      name: howToName,
+      description: tool.metaDescription,
+      step: howToSteps.map((step, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: step.name,
+        text: step.text,
+      })),
+    });
+  }
+
+  if (faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    });
+  }
+
+  graph.push({
+    "@type": "WebPage",
+    "@id": pageUrl,
+    name: tool.title,
+    description: tool.metaDescription,
+    url: pageUrl,
+    isPartOf: { "@id": WEBSITE_ID },
+    breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+    mainEntity: { "@id": `${pageUrl}#software` },
+  });
+
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE_URL,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Image Tools",
-            item: `${SITE_URL}/tools`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: tool.title,
-            item: pageUrl,
-          },
-        ],
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": `${pageUrl}#software`,
-        name: tool.title,
-        url: pageUrl,
-        description: tool.metaDescription,
-        applicationCategory: "MultimediaApplication",
-        operatingSystem: "Web Browser",
-        browserRequirements: "Requires JavaScript",
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "USD",
-        },
-        provider: { "@id": `${SITE_URL}/#organization` },
-        isPartOf: { "@id": `${SITE_URL}/#website` },
-      },
-      {
-        "@type": "HowTo",
-        "@id": `${pageUrl}#howto`,
-        name: howToName,
-        description: tool.metaDescription,
-        step: howToSteps.map((step, index) => ({
-          "@type": "HowToStep",
-          position: index + 1,
-          name: step.name,
-          text: step.text,
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${pageUrl}#faq`,
-        mainEntity: faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.answer,
-          },
-        })),
-      },
-      {
-        "@type": "WebPage",
-        "@id": pageUrl,
-        name: tool.title,
-        description: tool.metaDescription,
-        url: pageUrl,
-        isPartOf: { "@id": `${SITE_URL}/#website` },
-        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
-        mainEntity: { "@id": `${pageUrl}#software` },
-      },
-    ],
+    "@graph": graph,
   };
 }
 
@@ -292,7 +327,7 @@ export function toolWebPageJsonLd(tool: ToolConfig) {
     name: tool.title,
     description: tool.metaDescription,
     url: `${SITE_URL}/${tool.slug}`,
-    isPartOf: { "@id": `${SITE_URL}/#website` },
+    isPartOf: { "@id": WEBSITE_ID },
     about: {
       "@type": "Thing",
       name: tool.shortTitle,
@@ -318,18 +353,125 @@ export function toolFaqJsonLd(tool: ToolConfig, faqs?: ToolConfig["faqs"]) {
 }
 
 export function allToolsItemListJsonLd(tools: ToolConfig[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "All SUHADIMG image tools",
-    numberOfItems: tools.length,
-    itemListElement: tools.map((tool, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
+  const itemListElement = tools.map((tool, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/${tool.slug}`,
       name: tool.title,
       url: `${SITE_URL}/${tool.slug}`,
       description: tool.metaDescription,
-    })),
+    },
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationStub(),
+      websiteStub(),
+      {
+        "@type": "ItemList",
+        "@id": `${SITE_URL}/tools#tool-list`,
+        name: "All SUHADIMG image tools",
+        numberOfItems: tools.length,
+        itemListElement,
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+    ],
+  };
+}
+
+export function homepageJsonLdGraph() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationStub(),
+      websiteStub(),
+      stripContext(homepageItemListJsonLd()),
+      stripContext(homepageFaqJsonLd()),
+      {
+        "@type": "WebPage",
+        "@id": SITE_URL,
+        url: SITE_URL,
+        name: SITE_NAME,
+        description: SITE_DESCRIPTION,
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: { "@id": `${SITE_URL}/#featured-tools` },
+      },
+    ],
+  };
+}
+
+export function blogPageJsonLdGraph(post: {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+}) {
+  const url = `${SITE_URL}/blog/${post.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationStub(),
+      websiteStub(),
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        headline: post.title,
+        description: post.description,
+        url,
+        datePublished: post.date,
+        dateModified: post.date,
+        author: { "@id": ORG_ID },
+        publisher: { "@id": ORG_ID },
+        image: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/og-image.png`,
+          caption: "SUHADIMG blog article",
+        },
+        mainEntityOfPage: { "@id": url },
+        articleSection: post.category,
+        inLanguage: "en",
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: `${SITE_URL}/blog`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: url,
+          },
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": url,
+        name: post.title,
+        description: post.description,
+        url,
+        isPartOf: { "@id": WEBSITE_ID },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        mainEntity: { "@id": `${url}#article` },
+      },
+    ],
   };
 }
 
@@ -374,7 +516,7 @@ export function blogArticleJsonLd(post: {
     },
     articleSection: post.category,
     inLanguage: "en",
-    isPartOf: { "@id": `${SITE_URL}/#website` },
+    isPartOf: { "@id": WEBSITE_ID },
   };
 }
 

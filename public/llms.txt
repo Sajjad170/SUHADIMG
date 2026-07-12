@@ -2,6 +2,8 @@
 
 > Free online image converter and editor at https://suhadimg.site
 
+## About
+
 SUHADIMG offers 46+ browser-based image tools: compress, resize, crop, convert formats (JPG, PNG, WebP, GIF, HEIC, AVIF), edit photos, remove backgrounds, and more. Files are processed securely and deleted immediately. No signup required.
 
 ## Main pages
@@ -24,12 +26,12 @@ SUHADIMG offers 46+ browser-based image tools: compress, resize, crop, convert f
 
 ## Policies
 
-- [Privacy policy](https://suhadimg.site/privacy)
-- [Terms and conditions](https://suhadimg.site/terms)
-- [Cookie policy](https://suhadimg.site/cookies)
-- [Disclaimer](https://suhadimg.site/disclaimer)
+- [Privacy policy](https://suhadimg.site/privacy): How SUHADIMG handles your data
+- [Terms and conditions](https://suhadimg.site/terms): Terms of use for SUHADIMG tools
+- [Cookie policy](https://suhadimg.site/cookies): Cookie usage and preferences
+- [Disclaimer](https://suhadimg.site/disclaimer): Legal disclaimer for SUHADIMG
 
-## Optional
+## Resources
 
-- [Sitemap](https://suhadimg.site/sitemap.xml)
-- [Company website](https://suhadtechsolutions.site/)
+- [Sitemap](https://suhadimg.site/sitemap.xml): XML sitemap of all pages
+- [Company website](https://suhadtechsolutions.site/): Suhad Tech Solutions parent company

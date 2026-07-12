@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { BlogAuthorBox } from "@/components/BlogAuthorBox";
 import { blogPosts, getBlogPost, getFullBlogContent } from "@/lib/blog";
 import { getBlogMetadata } from "@/lib/seo";
-import { blogArticleJsonLd, blogBreadcrumbJsonLd } from "@/lib/structuredData";
+import { blogPageJsonLdGraph } from "@/lib/structuredData";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -150,7 +150,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <JsonLd data={[blogArticleJsonLd(post), blogBreadcrumbJsonLd(post)]} />
+      <JsonLd data={blogPageJsonLdGraph(post)} />
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <nav className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
           <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">
