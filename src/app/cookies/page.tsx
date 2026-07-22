@@ -14,7 +14,7 @@ export default function CookiePolicyPage() {
       <h1 className="mb-6 text-3xl font-bold text-zinc-900 dark:text-white">
         Cookie Policy
       </h1>
-      <p className="mb-6 text-sm text-zinc-500">Last updated: July 12, 2026</p>
+      <p className="mb-6 text-sm text-zinc-500">Last updated: July 22, 2026</p>
       <div className="space-y-6 leading-relaxed text-zinc-600 dark:text-zinc-400">
         <section>
           <h2 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-white">
@@ -43,9 +43,10 @@ export default function CookiePolicyPage() {
             </li>
             <li>
               <strong className="text-zinc-900 dark:text-white">Advertising:</strong>{" "}
-              If Google AdSense or similar services are enabled, ad partners may
-              set cookies to deliver and measure ads. We do not use cookies to
-              access your uploaded images.
+              We use Google AdSense to show ads and keep SUHADIMG free. Google and
+              its partners may set cookies (including the DoubleClick cookie) to
+              serve ads based on your visits to this and other websites. We do not
+              use cookies to access your uploaded images.
             </li>
           </ul>
         </section>

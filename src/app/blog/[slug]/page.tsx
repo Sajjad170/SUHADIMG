@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { BlogAuthorBox } from "@/components/BlogAuthorBox";
+import { BlogPostToolLinks } from "@/components/BlogPostToolLinks";
 import { blogPosts, getBlogPost, getFullBlogContent } from "@/lib/blog";
 import { getBlogMetadata } from "@/lib/seo";
 import { blogPageJsonLdGraph } from "@/lib/structuredData";
@@ -180,6 +181,7 @@ export default async function BlogPostPage({
           {post.title}
         </h1>
         <div className="prose-zinc">{renderContent(content)}</div>
+        <BlogPostToolLinks category={post.category} />
         <BlogAuthorBox />
       </article>
     </>

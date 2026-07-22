@@ -72,7 +72,7 @@ export const blogPosts: BlogPost[] = [
       "Step-by-step guide to resizing photos for social media, websites, passports, and print — without desktop software.",
     date: "2026-07-03",
     readTime: "5 min read",
-    category: "Tips",
+    category: "Social Media",
   },
   {
     slug: "heic-vs-jpg",

@@ -40,7 +40,8 @@ export default function SiteMapPage() {
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="mb-3 text-3xl font-bold text-zinc-900 dark:text-white">Sitemap</h1>
       <p className="mb-8 text-zinc-600 dark:text-zinc-400">
-        All pages on SUHADIMG. XML sitemap for search engines:{" "}
+        All live pages on SUHADIMG — {tools.length} tools, {blogPosts.length} blog
+        articles, and legal pages. XML sitemap for search engines:{" "}
         <a
           href={`${SITE_URL}/sitemap.xml`}
           className="text-blue-600 hover:underline dark:text-blue-400"

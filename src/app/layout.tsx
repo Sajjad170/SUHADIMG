@@ -4,6 +4,7 @@ import { Geist } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/Analytics";
+import { AdSense } from "@/components/AdSense";
 import { JsonLd } from "@/components/JsonLd";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CookieConsent } from "@/components/CookieConsentLazy";
@@ -74,6 +75,7 @@ export default async function RootLayout({
           }}
         />
         <JsonLd data={siteRootJsonLd()} />
+        <AdSense />
         <Analytics />
         <SiteDecorations />
         <ThemeProvider>

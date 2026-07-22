@@ -87,24 +87,37 @@ Ensure your website has clear navigation structures, including an HTML sitemap a
 };
 
 function genericExpansion(post: BlogPost): string {
+  const categoryContext: Record<string, string> = {
+    Guides: `This guide fits SUHADIMG's core mission: practical image workflows without desktop software. We test every recommendation on suhadimg.site before publishing — including batch uploads, ZIP downloads, and mobile layouts.`,
+    Formats: `Format decisions affect file size, transparency, and compatibility across browsers, email clients, and print shops. We compare formats using real files from phones, DSLRs, and design tools — not synthetic benchmarks alone.`,
+    "Web Performance": `Page speed and Core Web Vitals depend heavily on image weight. We link every performance recommendation to free SUHADIMG tools you can use immediately after reading — compress, convert to WebP, and resize to display dimensions.`,
+    Tips: `Step-by-step tutorials on SUHADIMG assume no prior design experience. Upload, adjust settings, preview, and download — all in the browser with files deleted after processing.`,
+    "Social Media": `Platform dimensions change; we verify sizes against current Instagram, Facebook, X, LinkedIn, and YouTube specs. Resize and compress before uploading so platforms do not re-compress your work aggressively.`,
+  };
+
   return `
 **Why "${post.title}" matters in 2026**
 ${post.description} Choosing the right workflows and tools is key to successful digital projects. At SUHADIMG, we publish practical guides and comparisons to help designers, developers, and content creators make informed decisions about their visual assets.
 
+${categoryContext[post.category] ?? categoryContext.Guides}
+
 **How we write and review articles**
-The SUHADIMG editorial team at Suhad Tech Solutions drafts each guide based on practical industry standards and hands-on testing. We verify format compatibility, note performance results, and update our content as web standards and browser requirements evolve. Every guide is written specifically for our users.
+The SUHADIMG editorial team at Suhad Tech Solutions drafts each guide based on practical industry standards and hands-on testing. We verify format compatibility, note performance results, and update our content as web standards and browser requirements evolve. Every guide is written specifically for our users — not copied from other websites or generated as filler.
 
 **Practical takeaways from this guide**
-When working with digital assets, always identify your target platform's specifications first. Note the required format, max file size in kilobytes, and optimal dimensions. Process copy assets using trusted, secure tools, and keep an uncompressed original master file in your local storage for future adjustments.
+When working with digital assets, always identify your target platform's specifications first. Note the required format, max file size in kilobytes, and optimal dimensions. Process copy assets using trusted, secure tools, and keep an uncompressed original master file in your local storage for future adjustments. Never re-compress the same JPG multiple times; start from the original when quality matters.
 
 **Real scenarios from our users**
 Our readers apply these guidelines to solve everyday workflow challenges. Freelancers prepare logos for email newsletters, e-commerce sellers optimize product galleries for fast loading speeds, students scale document scans for online forms, and developers convert assets for mobile apps. Each scenario is supported by free utilities on our homepage.
 
+**Common mistakes to avoid**
+Uploading oversized camera originals without resizing first. Converting JPG to PNG expecting better quality. Using GIF for full-color photos. Ignoring alt text and descriptive file names for SEO. Skipping visual inspection at 100% zoom after compression.
+
 **Try SUHADIMG free tools**
-Browse 46+ tools at [suhadimg.site/tools](/tools) — [compression](/tools#compression), [conversion](/tools#conversion), [cropping](/crop-image), [background removal](/background-remover), and more. No signup, no watermark, files deleted immediately after processing. Questions? Contact ${post.category === "Guides" ? "our team" : "us"} at support@suhadtechsolutions.site.
+Browse 46+ tools at [suhadimg.site/tools](/tools) — [compress image](/compress-image), [PNG to JPG](/png-to-jpg), [resize image](/resize-image), [crop image](/crop-image), and [background removal](/background-remover). No signup, no watermark, files deleted immediately after processing. Questions? Email support@suhadtechsolutions.site or use our [contact page](/contact).
 
 **Related reading**
-Explore more articles on the SUHADIMG blog covering PNG vs JPG, WebP adoption, social media sizes, and Google AdSense preparation for tool websites.
+Explore more articles on the [SUHADIMG blog](/blog) covering PNG vs JPG, WebP adoption, social media sizes, and image SEO optimization.
   `;
 }
 

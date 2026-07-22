@@ -53,6 +53,15 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/ads.txt",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "text/plain; charset=utf-8",
+          },
+        ],
+      },
+      {
         source: "/llms.txt",
         headers: [
           {

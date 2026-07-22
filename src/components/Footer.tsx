@@ -84,6 +84,11 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/site-map" prefetch className="text-sm text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400">
+                  HTML Sitemap
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

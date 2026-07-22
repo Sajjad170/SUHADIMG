@@ -26,7 +26,13 @@ function formatDate(dateStr: string) {
 }
 
 export default function BlogPage() {
-  const categories = [...new Set(blogPosts.map((p) => p.category))];
+  const categoryCounts = blogPosts.reduce<Record<string, number>>((acc, post) => {
+    acc[post.category] = (acc[post.category] ?? 0) + 1;
+    return acc;
+  }, {});
+  const categories = [...new Set(blogPosts.map((p) => p.category))].filter(
+    (cat) => (categoryCounts[cat] ?? 0) >= 3
+  );
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
@@ -36,7 +42,11 @@ export default function BlogPage() {
         </h1>
         <p className="max-w-2xl text-base text-zinc-600 dark:text-zinc-400">
           Discover optimization guides, format comparisons, and step-by-step tutorials compiled by the
-          SUHADIMG editorial team. All workflows are fully tested.
+          SUHADIMG editorial team. All workflows are fully tested. Browse the full{" "}
+          <Link href="/site-map" className="text-blue-600 hover:underline dark:text-blue-400">
+            HTML sitemap
+          </Link>{" "}
+          for every tool and article.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs">
           {categories.map((cat) => (

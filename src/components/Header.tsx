@@ -19,6 +19,12 @@ const SearchBar = dynamic(
   }
 );
 
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/disclaimer", label: "Disclaimer" },
+];
+
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/tools", label: "All Tools" },
@@ -103,6 +109,19 @@ export function Header() {
                       View all tools →
                     </Link>
                   </div>
+                  <div className="mt-1 border-t border-zinc-100 pt-1 dark:border-zinc-800">
+                    {legalLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        prefetch
+                        onClick={() => setMoreOpen(false)}
+                        className="block px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -122,6 +141,20 @@ export function Header() {
       {mobileOpen && (
         <div className="border-t border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-950 sm:hidden">
           {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              prefetch
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 dark:text-zinc-300"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            Legal
+          </p>
+          {legalLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}

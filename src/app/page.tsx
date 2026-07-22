@@ -4,7 +4,6 @@ import { JsonLd } from "@/components/JsonLd";
 import { LogoWithName } from "@/components/Logo";
 import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
-import { ComingSoonSection } from "@/components/ComingSoonSection";
 import { blogPosts } from "@/lib/blogPosts";
 import { getHomeMetadata } from "@/lib/seo";
 import { homepageJsonLdGraph } from "@/lib/structuredData";
@@ -180,7 +179,9 @@ export default function HomePage() {
                 Privacy and Data Security First
               </h3>
               <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-                Your images are processed purely in-memory. We enforce automatic file deletion, zero tracking databases, and use complete HTTPS encryption. No registration or payment is required.
+                Your images are processed in memory only. Files are deleted after
+                download. We do not store uploaded images in databases. Site
+                analytics and ads may use cookies — see our Privacy Policy.
               </p>
             </div>
             <div>
@@ -204,7 +205,9 @@ export default function HomePage() {
                 Security and Trust Standards
               </h2>
               <p className="max-w-xl text-xs text-zinc-500 dark:text-zinc-400">
-                SUHADIMG utilizes industry-leading safety protocols. Your privacy is guaranteed through local memory processing, secure HTTPS transmissions, and automatic file deletion.
+                SUHADIMG uses in-memory image processing, HTTPS encryption, and
+                automatic file deletion. Website analytics and ads may use
+                cookies — your uploads are never stored.
               </p>
             </div>
             <div className="flex flex-wrap gap-3 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
@@ -250,8 +253,6 @@ export default function HomePage() {
           </dl>
         </div>
       </section>
-
-      <ComingSoonSection />
     </>
   );
 }
