@@ -4,13 +4,13 @@ import { Geist } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/Analytics";
-import { AdSense } from "@/components/AdSense";
 import { JsonLd } from "@/components/JsonLd";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CookieConsent } from "@/components/CookieConsentLazy";
 import { LanguageBanner } from "@/components/LanguageBannerLazy";
 import { SiteDecorations } from "@/components/SiteDecorations";
 import { SITE_NAME } from "@/lib/seo";
+import { ADSENSE_CLIENT_ID } from "@/lib/adsense";
 import { siteRootJsonLd } from "@/lib/structuredData";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import "./globals.css";
@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   verification: {
     google: "dpW8D8FVtrz2NhNSZFpZWUbFwZQRVp22eU8FHfDWmd8",
   },
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT_ID,
+  },
   icons: {
     icon: [{ url: "/favicon.png", type: "image/png", sizes: "48x48" }],
     apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
@@ -65,6 +68,14 @@ export default async function RootLayout({
 
   return (
     <html lang={htmlLang} suppressHydrationWarning>
+      <head>
+        <meta name="google-adsense-account" content={ADSENSE_CLIENT_ID} />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`${geistSans.variable} flex min-h-screen flex-col bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100`}
       >
@@ -75,7 +86,6 @@ export default async function RootLayout({
           }}
         />
         <JsonLd data={siteRootJsonLd()} />
-        <AdSense />
         <Analytics />
         <SiteDecorations />
         <ThemeProvider>
