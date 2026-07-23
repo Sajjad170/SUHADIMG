@@ -1,4 +1,5 @@
 import { extraBlogPosts } from "./blogExtra";
+import { latestBlogPosts } from "./blogLatestArticles";
 
 export interface BlogPost {
   slug: string;
@@ -120,6 +121,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guides",
   },
   ...extraBlogPosts,
+  ...latestBlogPosts,
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {

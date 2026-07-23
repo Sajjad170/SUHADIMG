@@ -1,4 +1,5 @@
 import { extraBlogContent } from "./blogExtra";
+import { latestBlogContent } from "./blogLatestArticles";
 import { getFullBlogContent as mergeBlogContent } from "./blogExpansions";
 
 export type { BlogPost } from "./blogPosts";
@@ -223,4 +224,5 @@ Looking for the best free image converter in 2026? Here's what matters.
 Try SUHADIMG at suhadimg.site — convert PNG to JPG, compress, resize, crop, and more in seconds.
   `,
   ...extraBlogContent,
+  ...latestBlogContent,
 };

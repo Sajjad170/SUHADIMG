@@ -124,7 +124,10 @@ export default function HomePage() {
         <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
           <SectionHeading title="From the Blog" subtitle="Guides and tips for better images" />
           <div className="grid gap-3 sm:grid-cols-3">
-            {blogPosts.slice(0, 3).map((post) => (
+            {[...blogPosts]
+              .sort((a, b) => b.date.localeCompare(a.date))
+              .slice(0, 3)
+              .map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}

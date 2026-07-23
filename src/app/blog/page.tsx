@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata = getPageMetadata(
   "Blog — Image Tips & Guides",
-  "SUHADIMG blog: 30+ original guides on PNG vs JPG, compression, resizing, WebP, social media sizes, and SEO image optimization.",
+  "SUHADIMG blog: 34+ original guides on PNG vs JPG, compression, resizing, WebP, social media sizes, and SEO image optimization.",
   "/blog"
 );
 
@@ -26,11 +26,12 @@ function formatDate(dateStr: string) {
 }
 
 export default function BlogPage() {
-  const categoryCounts = blogPosts.reduce<Record<string, number>>((acc, post) => {
+  const sortedPosts = [...blogPosts].sort((a, b) => b.date.localeCompare(a.date));
+  const categoryCounts = sortedPosts.reduce<Record<string, number>>((acc, post) => {
     acc[post.category] = (acc[post.category] ?? 0) + 1;
     return acc;
   }, {});
-  const categories = [...new Set(blogPosts.map((p) => p.category))].filter(
+  const categories = [...new Set(sortedPosts.map((p) => p.category))].filter(
     (cat) => (categoryCounts[cat] ?? 0) >= 3
   );
 
@@ -61,7 +62,7 @@ export default function BlogPage() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post) => (
+        {sortedPosts.map((post) => (
           <article
             key={post.slug}
             className="group flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-blue-800"

@@ -84,6 +84,18 @@ Before submitting your application to Google, verify that your site has working 
 **Website navigation and user experience**
 Ensure your website has clear navigation structures, including an HTML sitemap and category indexing in the header or footer. The site must be completely mobile-friendly, serve pages over secure HTTPS protocols, and compile quickly to pass Core Web Vitals targets. Avoid thin pages, broken links, or placeholder content.
   `,
+  "how-to-reduce-png-file-size": `
+SUHADIMG's [compress image](/compress-image) tool uses Sharp for lossless PNG optimization. Pair it with [PNG to WebP](/png-to-webp) when you need modern format delivery with fallbacks for older browsers.
+  `,
+  "webp-vs-avif-comparison": `
+Test both formats on your heaviest images using SUHADIMG: [WebP to JPG](/webp-to-jpg), [AVIF to JPG](/avif-to-jpg), and [PNG to WebP](/png-to-webp). Measure PageSpeed Insights before and after switching hero images.
+  `,
+  "convert-images-for-job-applications": `
+Job portals rarely explain resizing order — dimensions first, format second, compression last. SUHADIMG's [resize](/resize-image), [HEIC to JPG](/heic-to-jpg), and [compress](/compress-image) tools cover the full workflow without desktop software.
+  `,
+  "lazy-loading-images-guide": `
+Lazy loading saves bandwidth; compression saves bytes per file. Run production images through [SUHADIMG compress](/compress-image) and [resize](/resize-image) before enabling loading="lazy" in your templates for the biggest Core Web Vitals gains.
+  `,
 };
 
 function genericExpansion(post: BlogPost): string {
